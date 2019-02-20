@@ -18,12 +18,9 @@ app.get('/', function(request, response) {
 });
 
 app.get('/submit', function(request, response) {
-  response.send(request.query);
+  response.send(request.query.dream);
 });
-app.post('/submit', function(request, response){
-  
-  response.send(request.params);
-});
+
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
