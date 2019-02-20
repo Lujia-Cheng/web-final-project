@@ -17,11 +17,13 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.post('/submit', function(request, response) {
-  console.log(request.body);
-  response.send(request.body);
+app.get('/submit', function(request, response) {
+  response.send(request.query);
 });
-
+app.post('/submit', function(request, response){
+  
+  response.send(request.params);
+});
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
