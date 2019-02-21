@@ -11,14 +11,20 @@ const app = express();
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
+app.set("views", __dirname + "/views/");
+app.set("view engine", "ejs");
+
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
   console.log(process.env.FIRSTNAME)
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/submit', function(request, response) {
-  response.send(request.query.dream);
+app.get('/sup', function(request, response) {
+  response.render("sup", {
+    message: "Hey everyone! This is my webpage.",
+    
+  });
 });
 
 // listen for requests :)
