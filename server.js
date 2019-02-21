@@ -14,17 +14,16 @@ app.use(express.static('public'));
 app.set("views", __dirname + "/views/");
 app.set("view engine", "ejs");
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  console.log(process.env.FIRSTNAME)
-  response.sendFile(__dirname + '/views/index.html');
-});
 
-app.get('/sup', function(request, response) {
-  response.render("sup", {
+
+
+app.get('/', function(request, response) {
+  response.render("index", {
     message: "Hey everyone! This is my webpage.",
-    
   });
+});
+app.get('/sup/:name', function(request, response){
+  response.render("sup", {name: request.params.name});
 });
 
 // listen for requests :)
