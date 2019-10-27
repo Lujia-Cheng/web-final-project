@@ -19,6 +19,8 @@ app.set("view engine", "ejs");
 
 
 //define our routes
+
+
 app.get('/', function(request, response) {
   response.render("index", {
     message: "Hey everyone! This is my webpage.",
@@ -31,10 +33,11 @@ app.get('/sup/:name', function(request, response){
 
 app.get('/dict/:word', getWord);
 
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
-})
+//shows a 404 error if no other routes match
+app.use(function (req, res, next) {
+  res.status(404).send('Sorry, this path is not defined!')
+});
+
 
 //app.get('dict/:random', getRandomWord);
 
