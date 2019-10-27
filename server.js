@@ -6,8 +6,6 @@ const express = require('express');
 const app = express();
 const dictionary = require('./dictionary.json');
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 //use the static files in the public folder
 app.use(express.static('public'));
@@ -18,47 +16,33 @@ app.set("view engine", "ejs");
 
 
 
-//define our routes
-
-
+//define your routes here. don't forget about error handling
 app.get('/', function(request, response) {
   response.render("index", {
     message: "Hey everyone! This is my webpage.",
   });
 });
 
-app.get('/sup/:name', function(request, response){
-  response.render("sup", {name: request.params.name});
-});
-
-app.get('/dict/:word', getWord);
-
-//shows a 404 error if no other routes match
-app.use(function (req, res, next) {
-  res.status(404).send('Sorry, this path is not defined!')
-});
 
 
-//app.get('dict/:random', getRandomWord);
 
-function getWord(request, response){
+
+
+
+
+//use this method to retrieve a word from the dictionary
+function getDefinition(request, response){
   const routeParams = request.params;
   const word = routeParams.word;
   
+  //all of our keys are lowercase
   const key = word.toLowerCase();
   const definition = dictionary[key];
-  if(definition === undefined){
-    response.status(400);
-    response.send("Word not found");
-  } else{
-    response.status(200);
-    response.json({"word": word, "definition": definition});
-  }
   
-     //response.send(`The word ${word} is not in the English dictionary.`);
+  //handle error case: word does not exist in dictionary
   
-  //response.render("word", {word: word, definition: definition})
- 
+  //if the word exists, return it in the response
+  
 }
 
 
