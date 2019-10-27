@@ -4,6 +4,7 @@
 // init project
 const express = require('express');
 const app = express();
+const dictionary = require('./dictionary.json');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -27,6 +28,18 @@ app.get('/', function(request, response) {
 app.get('/sup/:name', function(request, response){
   response.render("sup", {name: request.params.name});
 });
+
+app.get('/dict/:word', getWord);
+
+function getWord(req, res){
+  const routeParams = req.params;
+  const word = routeParams.word;
+  
+  const key = word.toLowerCase();
+  const definition = dictionary[key];
+  
+  res.send(`The definition of ${word} is ${definition}`);
+}
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
