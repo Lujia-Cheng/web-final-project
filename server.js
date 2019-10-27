@@ -39,13 +39,17 @@ function getWord(request, response){
   
   const key = word.toLowerCase();
   const definition = dictionary[key];
-  if(key === undefined)
+  if(definition === undefined)
     response.status(400);
-    //response.send(`The word ${word} is not in the English dictionary.`);
+    response.);
 
+    //response.send(`The word ${word} is not in the English dictionary.`);
+  
   //response.render("word", {word: word, definition: definition})
-  response.status(200);
-  response.json({"word": word, "definition": definition});
+  else{
+    response.status(200);
+    response.json({"word": word, "definition": definition});
+  }
 }
 
 
