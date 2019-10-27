@@ -31,6 +31,11 @@ app.get('/sup/:name', function(request, response){
 
 app.get('/dict/:word', getWord);
 
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
 //app.get('dict/:random', getRandomWord);
 
 function getWord(request, response){
@@ -39,17 +44,18 @@ function getWord(request, response){
   
   const key = word.toLowerCase();
   const definition = dictionary[key];
-  if(definition === undefined)
+  if(definition === undefined){
     response.status(400);
-    response.);
-
-    //response.send(`The word ${word} is not in the English dictionary.`);
-  
-  //response.render("word", {word: word, definition: definition})
-  else{
+    response.send("Word not found");
+  } else{
     response.status(200);
     response.json({"word": word, "definition": definition});
   }
+  
+     //response.send(`The word ${word} is not in the English dictionary.`);
+  
+  //response.render("word", {word: word, definition: definition})
+ 
 }
 
 
