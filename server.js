@@ -39,8 +39,8 @@ function getWord(request, response){
   const definition = dictionary[key];
   if(definition === undefined)
     response.send(`The word ${word} is not in the English dictionary.`);
- // response.send(`The definition of ${word} is ${definition}`);
-  response.render("word", {word: word})
+
+  response.render("word", {word: word, definition: definition})
 }
 
 // listen for requests :)
