@@ -31,14 +31,16 @@ app.get('/sup/:name', function(request, response){
 
 app.get('/dict/:word', getWord);
 
-function getWord(req, res){
-  const routeParams = req.params;
+function getWord(request, response){
+  const routeParams = request.params;
   const word = routeParams.word;
   
   const key = word.toLowerCase();
   const definition = dictionary[key];
-  
-  res.send(`The definition of ${word} is ${definition}`);
+  if(definition === undefined)
+    response.send(`The word ${word} is not in the English dictionary.`);
+ // response.send(`The definition of ${word} is ${definition}`);
+  response.render("word", {word: word})
 }
 
 // listen for requests :)
