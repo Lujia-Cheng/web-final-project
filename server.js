@@ -31,17 +31,24 @@ app.get('/sup/:name', function(request, response){
 
 app.get('/dict/:word', getWord);
 
+//app.get('dict/:random', getRandomWord);
+
 function getWord(request, response){
   const routeParams = request.params;
   const word = routeParams.word;
   
   const key = word.toLowerCase();
   const definition = dictionary[key];
-  if(definition === undefined)
-    response.send(`The word ${word} is not in the English dictionary.`);
+  if(key === undefined)
+    response.status(400);
+    //response.send(`The word ${word} is not in the English dictionary.`);
 
-  response.render("word", {word: word, definition: definition})
+  //response.render("word", {word: word, definition: definition})
+  response.status(200);
+  response.json({"word": word, "definition": definition});
 }
+
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
