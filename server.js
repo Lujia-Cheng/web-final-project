@@ -8,20 +8,22 @@ const app = express();
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-// http://expressjs.com/en/starter/static-files.html
+//use the static files in the public folder
 app.use(express.static('public'));
 
+//tell express where to get your views and which template engine to use
 app.set("views", __dirname + "/views/");
 app.set("view engine", "ejs");
 
 
 
-
+//define our routes
 app.get('/', function(request, response) {
   response.render("index", {
     message: "Hey everyone! This is my webpage.",
   });
 });
+
 app.get('/sup/:name', function(request, response){
   response.render("sup", {name: request.params.name});
 });
