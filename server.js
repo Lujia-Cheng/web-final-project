@@ -4,6 +4,8 @@
 // init project
 const express = require('express');
 const app = express();
+
+//load my .json file of english dictionary word
 const dictionary = require('./dictionary.json');
 
 
@@ -27,23 +29,6 @@ app.get('/', function(request, response) {
 
 
 
-
-
-
-//use this method to retrieve a word from the dictionary
-function getDefinition(request, response){
-  const routeParams = request.params;
-  const word = routeParams.word;
-  
-  //all of our keys are lowercase
-  const key = word.toLowerCase();
-  const definition = dictionary[key];
-  
-  //handle error case: word does not exist in dictionary
-  
-  //if the word exists, return it in the response
-  
-}
 
 
 
