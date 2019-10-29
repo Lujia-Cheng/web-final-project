@@ -1,6 +1,6 @@
-Activity 8
+Express.js Starter Template
 =================
-In this activity you are going to write a simple REST API that performs some basic operations, given a dictionary of words (in JSON format). Your API should perform the following functions:
+Remix this project to get started with Express.js for Project 3
 
 * GET dictionary/:word - retrieves the definition of a given word
 * POST dictionary/ - creates a new definition in the dictionary (this should be faked out)
