@@ -7,14 +7,3 @@ Remix this project to get started with Express.js for Project 3.
 * DELETE dictionary/:word - deletes the word in the dictionary, if it exists (this is also faked out)
 
 server.js - this is where your project is initialized and your Node app starts. 
-
-Views
-=====
-* .ejs
-* sup.ejs
-
-
-Public 
-======
-* client.js
-* style.css
