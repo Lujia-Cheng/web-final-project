@@ -8,9 +8,6 @@ const app = express();
 //load my .json file of english dictionary word
 const dictionary = require('./dictionary.json');
 
-
-
-
 //define your routes here. don't forget about error handling
 app.get('/', function(request, response) {
   response.json({
