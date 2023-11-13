@@ -22,6 +22,20 @@ This Music Library API interacts with a collection of songs and artists. You can
     ...
   ]
   ```
+- GET /songs/:id
+  - Description: Retrieves a song by title.
+  - Response: JSON of the song.
+  - Response Code: 200 OK
+  - Example Request: GET  https://yam38-assignment-3-part-a.glitch.me/songs/Song%20Title%201
+  - Example Response:
+  ```json
+    {
+      "title": "Song Title 1",
+      "artist": "Artist Name 1",
+      "genre": "Genre 1",
+      "year": 2020
+    }
+  ```
 - POST /songs
   - Description: Adds a new song to the collection.
   - Payload: JSON object containing song details.
@@ -54,7 +68,7 @@ Example Response:
   - Payload: JSON object containing updated song details.
   - Response: Confirmation message and details of the updated song.
   - Response Code: 200 OK
-  - Example Request: PUT  https://yam38-assignment-3-part-a.glitch.me/songs/Old Song Title
+  - Example Request: PUT  https://yam38-assignment-3-part-a.glitch.me/songs/Song%20Title%201
 ```json
 {
   "title": "Updated Song Title",
@@ -104,6 +118,19 @@ Example Response:
   },
   ...
 ]
+```
+- GET /artists/:id
+  - Description: Retrieves a artist by id.
+  - Response: JSON of the artist.
+  - Response Code: 200 OK
+  - Example Request: GET  https://yam38-assignment-3-part-a.glitch.me/artists/Artist%20Name%201
+  - Example Response:
+```json
+  {
+    "name": "Artist Name 1",
+    "genre": "Genre 1",
+    "debutYear": 2015
+  }
 ```
 - POST /artists
   - Description: Adds a new artist to the collection.

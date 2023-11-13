@@ -14,14 +14,10 @@ const artists = require('./artists.json');
 app.get('/songs', function(request, response) {
   response.json(songs);
 });
-
-app.put('/songs/:title', function(request, response) {
-  let title = request.params['title'];
-  if (songs[title]) {
-    let updatedSongData = request.body;
-    songs[title] = updatedSongData;
-
-    response.json({ message: "Song updated successfully", song: songs[title] });
+app.get('/songs/:title', function(request, response) {
+  let name = request.params['title'];
+  if (songs[name]) {
+    response.json(songs[name]);
   } else {
     response.status(404).json({ message: "Song not found" });
   }
