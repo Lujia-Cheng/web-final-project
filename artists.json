@@ -1,0 +1,12 @@
+{
+  "Artist Name 1": {
+    "name": "Artist Name 1",
+    "genre": "Genre 1",
+    "debutYear": 2015
+  },
+  "Artist Name 2": {
+    "name": "Artist Name 2",
+    "genre": "Genre 2",
+    "debutYear": 2016
+  }
+}
