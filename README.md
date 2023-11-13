@@ -5,6 +5,46 @@ Music Library API Documentation
 This Music Library API interacts with a collection of songs and artists. You can create, read, update, and delete song and artist data. The API uses RESTful principles and responds with JSON data.
 
 ## Endpoints
+### List All
+
+- GET /all
+  - Description: Retrieves a combined list of all songs and artists.
+  - Response: JSON object containing both songs and artists.
+  - Response Code: 200 OK
+  - Example Request: GET https://yam38-assignment-3-part-a.glitch.me/all
+  - Example Response:
+    ```json
+    {
+      "songs": {
+        "Song Title 1": {
+          "title": "Song Title 1",
+          "artist": "Artist Name 1",
+          "genre": "Genre 1",
+          "year": 2020
+        },
+        "Song Title 2": {
+          "title": "Song Title 2",
+          "artist": "Artist Name 2",
+          "genre": "Genre 2",
+          "year": 2019
+        },
+        ...
+      },
+      "artists": {
+        "Artist Name 1": {
+          "name": "Artist Name 1",
+          "genre": "Genre 1",
+          "debutYear": 2015
+        },
+        "Artist Name 2": {
+          "name": "Artist Name 2",
+          "genre": "Genre 2",
+          "debutYear": 2016
+        },
+        ...
+      }
+    }
+    ```
 ### Songs
 - ```GET``` /songs
   - Description: Retrieves a list of all songs.

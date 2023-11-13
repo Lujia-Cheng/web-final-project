@@ -9,6 +9,15 @@ app.use(express.json());
 const songs = require('./songs.json');
 const artists = require('./artists.json');
 
+app.get('/all', function(request, response) {
+  let allResources = {
+    songs: songs,
+    artists: artists
+  };
+
+  response.json(allResources);
+});
+
 // Routes for songs
 app.get('/songs', function(request, response) {
   response.json(songs);
@@ -109,6 +118,7 @@ app.get('/artists/:name/songs', function(request, response) {
 app.use(function(request, response) {
   response.status(404).json({ message: "Resource not found" });
 });
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
