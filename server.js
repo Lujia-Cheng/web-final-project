@@ -27,12 +27,11 @@ app.get('/songs/:title', function(request, response) {
 app.post('/songs', function(request, response) {
   // Extract song details from request body
   let newSong = request.body;
-
   // Add a unique identifier or title for the new song
   songs[newSong.title] = newSong;
-
   response.status(201).json({ message: "Song added successfully", song: newSong });
 });
+
 app.put('/songs/:title', function(request, response) {
   let title = request.params['title'];
   if (songs[title]) {
@@ -43,6 +42,7 @@ app.put('/songs/:title', function(request, response) {
     response.status(404).json({ message: "Song not found" });
   }
 });
+
 app.delete('/songs/:title', function(request, response) {
   let title = request.params['title'];
   if (songs[title]) {
@@ -53,11 +53,12 @@ app.delete('/songs/:title', function(request, response) {
   }
 });
 
+
+
 // Routes for artists
 app.get('/artists', function(request, response) {
   response.json(artists);
 });
-
 app.get('/artists/:name', function(request, response) {
   let name = request.params['name'];
   if (artists[name]) {
@@ -95,6 +96,10 @@ app.delete('/artists/:name', function(request, response) {
   }
 });
 
+// Handle 404 for undefined routes
+app.use(function(request, response) {
+  response.status(404).json({ message: "Resource not found" });
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
