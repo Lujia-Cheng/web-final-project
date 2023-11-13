@@ -1,0 +1,14 @@
+{
+  "song1": {
+    "title": "Song Title 1",
+    "artist": "Artist Name 1",
+    "genre": "Genre 1",
+    "year": 2020
+  },
+  "song2": {
+    "title": "Song Title 2",
+    "artist": "Artist Name 2",
+    "genre": "Genre 2",
+    "year": 2019
+  }
+}
