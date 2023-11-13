@@ -1,6 +1,5 @@
 // server.js
 // where your node app starts
-
 // init project
 const express = require('express');
 const app = express();
@@ -24,9 +23,7 @@ app.get('/songs/:title', function(request, response) {
 });
 
 app.post('/songs', function(request, response) {
-  // Extract song details from request body
   let newSong = request.body;
-  // Add a unique identifier or title for the new song
   songs[newSong.title] = newSong;
   response.status(201).json({ message: "Song added successfully", song: newSong });
 });
@@ -67,10 +64,8 @@ app.get('/artists/:name', function(request, response) {
   }
 });
 app.post('/artists', function(request, response) {
-  // Extract artist details from request body
   let newArtist = request.body;
 
-  // Add a unique identifier or name for the new artist
   artists[newArtist.name] = newArtist;
 
   response.status(201).json({ message: "Artist added successfully", artist: newArtist });
@@ -94,7 +89,22 @@ app.delete('/artists/:name', function(request, response) {
     response.status(404).json({ message: "Artist not found" });
   }
 });
+app.get('/artists/:name/songs', function(request, response) {
+  let artistName = request.params['name'];
+  let artistSongs = [];
 
+  for (let songTitle in songs) {
+    if (songs[songTitle].artist === artistName) {
+      artistSongs.push(songs[songTitle]);
+    }
+  }
+
+  if (artistSongs.length > 0) {
+    response.json(artistSongs);
+  } else {
+    response.status(404).json({ message: "No songs found for this artist" });
+  }
+});
 // Handle 404 for undefined routes
 app.use(function(request, response) {
   response.status(404).json({ message: "Resource not found" });
