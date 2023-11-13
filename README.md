@@ -11,6 +11,7 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Response Code: 200 OK
   - Example Request: GET  https://yam38-assignment-3-part-a.glitch.me/songs
   - Example Response:
+  ```json
   [
     {
       "title": "Song Title 1",
@@ -20,6 +21,8 @@ This Music Library API interacts with a collection of songs and artists. You can
     },
     ...
   ]
+  ```
+
 - POST /songs
 Description: Adds a new song to the collection.
 Payload: JSON object containing song details.
