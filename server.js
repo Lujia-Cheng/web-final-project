@@ -15,10 +15,13 @@ app.get('/songs', function(request, response) {
   response.json(songs);
 });
 
-app.get('/songs/:title', function(request, response) {
+app.put('/songs/:title', function(request, response) {
   let title = request.params['title'];
   if (songs[title]) {
-    response.json(songs[title]);
+    let updatedSongData = request.body;
+    songs[title] = updatedSongData;
+
+    response.json({ message: "Song updated successfully", song: songs[title] });
   } else {
     response.status(404).json({ message: "Song not found" });
   }
