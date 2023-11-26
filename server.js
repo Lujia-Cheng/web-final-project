@@ -2,8 +2,23 @@
 // where your node app starts
 // init project
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 const app = express();
 app.use(express.json());
+
+// Establish a connection with the Mongo Database
+// Get the username, password, host, and databse from the .env file
+const mongoDB = ("mongodb+srv://"+
+                 process.env.USERNAME+
+                 ":"
+                 +process.env.PASSWORD+
+                 "@"
+                 +process.env.HOST+
+                 "/"
+                 +process.env.DATABASE);
+mongoose.connect(mongoDB, {useNewUrlParser: true, retryWrites: true});
 
 // load my .json files
 const songs = require('./songs.json');
