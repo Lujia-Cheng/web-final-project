@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(express.json());
 
+const Song = require('./models/song');
+const Artist = require('./models/artist');
+
 // Establish a connection with the Mongo Database
 // Get the username, password, host, and databse from the .env file
 const mongoDB = ("mongodb+srv://"+
@@ -21,8 +24,9 @@ const mongoDB = ("mongodb+srv://"+
 mongoose.connect(mongoDB, {useNewUrlParser: true, retryWrites: true});
 
 // load my .json files
-const songs = require('./songs.json');
-const artists = require('./artists.json');
+// const songs = require('./songs.json');
+// const artists = require('./artists.json');
+
 
 app.get('/all', function(request, response) {
   let allResources = {
