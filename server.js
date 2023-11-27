@@ -92,6 +92,23 @@ app.delete('/songs/:title', async (request, response) => {
   }
 });
 
+app.get('/songs/year/:year', async (request, response) => {
+  const year = parseInt(request.params.year);
+  
+  if (!year) {
+    return response.status(400).json({ message: "Invalid year provided" });
+  }
+
+  try {
+    const songsByYear = await Song.find({ year: year });
+    if (songsByYear.length === 0) {
+      return response.status(404).json({ message: "No songs found for this year" });
+    }
+    response.json(songsByYear);
+  } catch (err) {
+    response.status(500).json({ message: err.message });
+  }
+});
 
 // Routes for artists
 app.get('/artists', async (request, response) => {

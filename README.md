@@ -2,9 +2,8 @@ Music Library API Documentation
 ===============================
 ``` YAM38```
 ## Postman collection sharing link
-feel free to use the postman collection i collected for the api endpoints for marking:
+feel free to use the postman collection i created for testing the api endpoints to ease your marking process:
 https://api.postman.com/collections/8126869-1d00cb5a-eceb-45ae-b368-973a74804210?access_key=PMAT-01HG98H8DNJPVCKTV669F85ANC
-
 click import in the postman app and paste this link
 
 ## Overview
@@ -178,6 +177,31 @@ Example Response:
         "__v": 0
     }
 }
+```
+- ```GET``` /songs/year/[year]
+  - Description: Filter songs by year
+  - parameter - year of the songs
+  - example request: https://yam38-assignment3-part-b.glitch.me/songs/year/2021
+  - example response:
+```json
+[
+    {
+        "_id": "6564fb8a1e870cc0eec614b6",
+        "title": "New Song4",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "__v": 0
+    },
+    {
+        "_id": "6564fb901e870cc0eec614b8",
+        "title": "New Song6",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "__v": 0
+    }
+]
 ```
 - ```PUT``` /songs/:title
   - Description: Updates an existing song.
