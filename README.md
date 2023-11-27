@@ -1,6 +1,12 @@
 Music Library API Documentation
 ===============================
 ``` YAM38```
+## Postman collection sharing link
+feel free to use the postman collection i collected for the api endpoints for marking:
+https://api.postman.com/collections/8126869-1d00cb5a-eceb-45ae-b368-973a74804210?access_key=PMAT-01HG98H8DNJPVCKTV669F85ANC
+
+click import in the postman app and paste this link
+
 ## Overview
 This Music Library API interacts with a collection of songs and artists. You can create, read, update, and delete song and artist data. The API uses RESTful principles and responds with JSON data.
 
@@ -11,38 +17,87 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Description: Retrieves a combined list of all songs and artists.
   - Response: JSON object containing both songs and artists.
   - Response Code: 200 OK
-  - Example Request: GET https://yam38-assignment3-part-b.glitch.me/all
+  - Example Request: ```GET``` https://yam38-assignment3-part-b.glitch.me/all
   - Example Response:
     ```json
     {
-      "songs": {
-        "Song Title 1": {
-          "title": "Song Title 1",
-          "artist": "Artist Name 1",
-          "genre": "Genre 1",
-          "year": 2020
-        },
-        "Song Title 2": {
-          "title": "Song Title 2",
-          "artist": "Artist Name 2",
-          "genre": "Genre 2",
-          "year": 2019
-        },
-        ...
-      },
-      "artists": {
-        "Artist Name 1": {
-          "name": "Artist Name 1",
-          "genre": "Genre 1",
-          "debutYear": 2015
-        },
-        "Artist Name 2": {
-          "name": "Artist Name 2",
-          "genre": "Genre 2",
-          "debutYear": 2016
-        },
-        ...
-      }
+        "songs": [
+            {
+                "_id": "6564fb7d1e870cc0eec614b4",
+                "title": "New Song2",
+                "artist": "New Artist2 updated",
+                "genre": "Updated2 Genre",
+                "year": 2022,
+                "__v": 0
+            },
+            {
+                "_id": "6564fb8a1e870cc0eec614b6",
+                "title": "New Song4",
+                "artist": "New Artist2",
+                "genre": "New Genre2",
+                "year": 2021,
+                "__v": 0
+            },
+            {
+                "_id": "6564fb901e870cc0eec614b8",
+                "title": "New Song6",
+                "artist": "New Artist2",
+                "genre": "New Genre2",
+                "year": 2021,
+                "__v": 0
+            }
+        ],
+        "artists": [
+            {
+                "_id": "6564fd151e870cc0eec614c1",
+                "name": "Updated Artist Name",
+                "genre": "Updated Genre",
+                "debutYear": 2024,
+                "__v": 0
+            },
+            {
+                "_id": "6564fd1a1e870cc0eec614c3",
+                "name": "New Artist2",
+                "genre": "New Genre1",
+                "debutYear": 2023,
+                "__v": 0
+            },
+            {
+                "_id": "6564fd201e870cc0eec614c5",
+                "name": "New Artist3",
+                "genre": "New Genre1",
+                "debutYear": 2023,
+                "__v": 0
+            },
+            {
+                "_id": "6564fd251e870cc0eec614c7",
+                "name": "New Artist4",
+                "genre": "New Genre2",
+                "debutYear": 2023,
+                "__v": 0
+            },
+            {
+                "_id": "6564fd281e870cc0eec614c9",
+                "name": "New Artist5",
+                "genre": "New Genre2",
+                "debutYear": 2023,
+                "__v": 0
+            },
+            {
+                "_id": "656502e21e870cc0eec614e0",
+                "name": "New Artist6",
+                "genre": "New Genre2",
+                "debutYear": 2023,
+                "__v": 0
+            },
+            {
+                "_id": "656502fd1e870cc0eec614e3",
+                "name": "New Artist6",
+                "genre": "New Genre2",
+                "debutYear": 2023,
+                "__v": 0
+            }
+        ]
     }
     ```
 ### Songs
@@ -53,32 +108,32 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Example Request: ```GET```  https://yam38-assignment3-part-b.glitch.me/songs
   - Example Response:
   ```json
-[
-    {
-        "_id": "6564fb7d1e870cc0eec614b4",
-        "title": "New Song2",
-        "artist": "New Artist2",
-        "genre": "New Genre2",
-        "year": 2021,
-        "__v": 0
-    },
-    {
-        "_id": "6564fb8a1e870cc0eec614b6",
-        "title": "New Song4",
-        "artist": "New Artist2",
-        "genre": "New Genre2",
-        "year": 2021,
-        "__v": 0
-    },
-    {
-        "_id": "6564fb901e870cc0eec614b8",
-        "title": "New Song6",
-        "artist": "New Artist2",
-        "genre": "New Genre2",
-        "year": 2021,
-        "__v": 0
-    }
-]
+  [
+      {
+          "_id": "6564fb7d1e870cc0eec614b4",
+          "title": "New Song2",
+          "artist": "New Artist2",
+          "genre": "New Genre2",
+          "year": 2021,
+          "__v": 0
+      },
+      {
+          "_id": "6564fb8a1e870cc0eec614b6",
+          "title": "New Song4",
+          "artist": "New Artist2",
+          "genre": "New Genre2",
+          "year": 2021,
+          "__v": 0
+      },
+      {
+          "_id": "6564fb901e870cc0eec614b8",
+          "title": "New Song6",
+          "artist": "New Artist2",
+          "genre": "New Genre2",
+          "year": 2021,
+          "__v": 0
+      }
+  ]
   ```
 - ```GET``` /songs/:id
   - Description: Retrieves a song by title.
@@ -267,23 +322,25 @@ Example Response:
   - Payload: JSON object containing artist details.
   - Response: Confirmation message and details of the added artist.
   - Response Code: 201 Created
-  - Example Request: ```POST```  https://yam38-assignment-3-part-a.glitch.me/artists
+  - Example Request: ```POST```  https://yam38-assignment3-part-b.glitch.me/artists
 ```json
 {
-  "name": "New Artist",
-  "genre": "New Genre",
+  "name": "New Artist6",
+  "genre": "New Genre2",
   "debutYear": 2023
 }
 ```
 Example Response:
 ```json
 {
-  "message": "Artist added successfully",
-  "artist": {
-    "name": "New Artist",
-    "genre": "New Genre",
-    "debutYear": 2023
-  }
+    "message": "Artist added successfully",
+    "artist": {
+        "name": "New Artist6",
+        "genre": "New Genre2",
+        "debutYear": 2023,
+        "_id": "6564fd2b1e870cc0eec614cb",
+        "__v": 0
+    }
 }
 ```
 - ```PUT``` /artists/:name
@@ -292,7 +349,7 @@ Example Response:
   - Payload: JSON object containing updated artist details.
   - Response: Confirmation message and details of the updated artist.
   - Response Code: 200 OK
-  - Example Request: ```PUT```  https://yam38-assignment-3-part-a.glitch.me/artists/Artist%20Name%201
+  - Example Request: ```PUT```  https://yam38-assignment3-part-b.glitch.me/artists/New Artist1
 ```json
 {
   "name": "Updated Artist Name",
@@ -303,12 +360,14 @@ Example Response:
 Example Response:
 ```json
 {
-  "message": "Artist updated successfully",
-  "artist": {
-    "name": "Updated Artist Name",
-    "genre": "Updated Genre",
-    "debutYear": 2024
-  }
+    "message": "Artist updated successfully",
+    "artist": {
+        "_id": "6564fd151e870cc0eec614c1",
+        "name": "Updated Artist Name",
+        "genre": "Updated Genre",
+        "debutYear": 2024,
+        "__v": 0
+    }
 }
 ```
 - ```DELETE``` /artists/:name
@@ -316,7 +375,7 @@ Example Response:
   - Parameters: name - The name of the artist to delete.
   - Response: Confirmation message.
   - Response Code: 200 OK
-  - Example Request: ```DELETE```  https://yam38-assignment-3-part-a.glitch.me/artists/New%20Artist
+  - Example Request: ```DELETE```  https://yam38-assignment3-part-b.glitch.me/artists/New Artist6
   - Example Response:
 ```json
 {

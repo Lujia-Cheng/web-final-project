@@ -21,6 +21,21 @@ const mongoDB = ("mongodb+srv://"+
                  +process.env.DATABASE);
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
+//
+app.get('/all', async (request, response) => {
+  try {
+    const songs = await Song.find({});
+    const artists = await Artist.find({});
+    const allResources = {
+      songs: songs,
+      artists: artists
+    };
+    response.json(allResources);
+  } catch (err) {
+    response.status(500).json({ message: err.message });
+  }
+});
+
 // Routes for songs
 app.get('/songs', async (request, response) => {
   try {
