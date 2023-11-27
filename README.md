@@ -11,7 +11,7 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Description: Retrieves a combined list of all songs and artists.
   - Response: JSON object containing both songs and artists.
   - Response Code: 200 OK
-  - Example Request: GET https://yam38-assignment-3-part-a.glitch.me/all
+  - Example Request: GET https://yam38-assignment3-part-b.glitch.me/all
   - Example Response:
     ```json
     {
@@ -50,31 +50,50 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Description: Retrieves a list of all songs.
   - Response: JSON array of songs.
   - Response Code: 200 OK
-  - Example Request: ```GET```  https://yam38-assignment-3-part-a.glitch.me/songs
+  - Example Request: ```GET```  https://yam38-assignment3-part-b.glitch.me/songs
   - Example Response:
   ```json
-  [
+[
     {
-      "title": "Song Title 1",
-      "artist": "Artist Name 1",
-      "genre": "Genre 1",
-      "year": 2020
+        "_id": "6564fb7d1e870cc0eec614b4",
+        "title": "New Song2",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "__v": 0
     },
-    ...
-  ]
+    {
+        "_id": "6564fb8a1e870cc0eec614b6",
+        "title": "New Song4",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "__v": 0
+    },
+    {
+        "_id": "6564fb901e870cc0eec614b8",
+        "title": "New Song6",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "__v": 0
+    }
+]
   ```
 - ```GET``` /songs/:id
   - Description: Retrieves a song by title.
   - Response: JSON of the song.
   - Response Code: 200 OK
-  - Example Request: ```GET```  https://yam38-assignment-3-part-a.glitch.me/songs/Song%20Title%201
+  - Example Request: ```GET```  https://yam38-assignment3-part-b.glitch.me/songs/New%20Song2
   - Example Response:
   ```json
     {
-      "title": "Song Title 1",
-      "artist": "Artist Name 1",
-      "genre": "Genre 1",
-      "year": 2020
+      "_id": "6564fb7d1e870cc0eec614b4",
+      "title": "New Song2",
+      "artist": "New Artist2",
+      "genre": "New Genre2",
+      "year": 2021,
+      "__v": 0
     }
   ```
 - ```POST``` /songs
@@ -82,7 +101,7 @@ This Music Library API interacts with a collection of songs and artists. You can
   - Payload: JSON object containing song details.
   - Response: Confirmation message and details of the added song.
   - Response Code: 201 Created
-  - Example Request: ```POST```  https://yam38-assignment-3-part-a.glitch.me/songs
+  - Example Request: ```POST```  https://yam38-assignment3-part-b.glitch.me/songs/Song%20Title%201
 ```json
 {
   "title": "New Song",
@@ -94,13 +113,15 @@ This Music Library API interacts with a collection of songs and artists. You can
 Example Response:
 ```json
 {
-  "message": "Song added successfully",
-  "song": {
-    "title": "New Song",
-    "artist": "New Artist",
-    "genre": "New Genre",
-    "year": 2021
-  }
+    "message": "Song added successfully",
+    "song": {
+        "title": "New Song6",
+        "artist": "New Artist2",
+        "genre": "New Genre2",
+        "year": 2021,
+        "_id": "6564fb901e870cc0eec614b8",
+        "__v": 0
+    }
 }
 ```
 - ```PUT``` /songs/:title
@@ -109,25 +130,27 @@ Example Response:
   - Payload: JSON object containing updated song details.
   - Response: Confirmation message and details of the updated song.
   - Response Code: 200 OK
-  - Example Request: ```PUT```  https://yam38-assignment-3-part-a.glitch.me/songs/Song%20Title%201
+  - Example Request: ```PUT```  https://yam38-assignment3-part-b.glitch.me/songs/New Song2
 ```json
 {
-  "title": "Updated Song Title",
-  "artist": "Updated Artist",
-  "genre": "Updated Genre",
+  "title": "New Song2",
+  "artist": "New Artist2 updated",
+  "genre": "Updated2 Genre",
   "year": 2022
 }
 ```
 Example Response:
 ```json
 {
-  "message": "Song updated successfully",
-  "song": {
-    "title": "Updated Song Title",
-    "artist": "Updated Artist",
-    "genre": "Updated Genre",
-    "year": 2022
-  }
+    "message": "Song updated successfully",
+    "song": {
+        "_id": "6564fb7d1e870cc0eec614b4",
+        "title": "New Song2",
+        "artist": "New Artist2 updated",
+        "genre": "Updated2 Genre",
+        "year": 2022,
+        "__v": 0
+    }
 }
 ```
 - ```DELETE``` /songs/:title
@@ -135,7 +158,7 @@ Example Response:
   - Parameters: title - The title of the song to delete.
   - Response: Confirmation message.
   - Response Code: 200 OK
-  - Example Request: ```DELETE```  https://yam38-assignment-3-part-a.glitch.me/songs/New%20Song
+  - Example Request: ```DELETE```  https://yam38-assignment3-part-b.glitch.me/songs/New%20Song2
   - Example Response:
 ```json
 {
@@ -148,16 +171,52 @@ Example Response:
   - Description: Retrieves a list of all artists.
   - Response: JSON array of artists.
   - Response Code: 200 OK
-  - Example Request: ```GET```  https://yam38-assignment-3-part-a.glitch.me/artists
+  - Example Request: ```GET```  https://yam38-assignment3-part-b.glitch.me/artists
   - Example Response:
 ```json
 [
-  {
-    "name": "Artist Name 1",
-    "genre": "Genre 1",
-    "debutYear": 2015
-  },
-  ...
+    {
+        "_id": "6564fd151e870cc0eec614c1",
+        "name": "New Artist1",
+        "genre": "New Genre1",
+        "debutYear": 2023,
+        "__v": 0
+    },
+    {
+        "_id": "6564fd1a1e870cc0eec614c3",
+        "name": "New Artist2",
+        "genre": "New Genre1",
+        "debutYear": 2023,
+        "__v": 0
+    },
+    {
+        "_id": "6564fd201e870cc0eec614c5",
+        "name": "New Artist3",
+        "genre": "New Genre1",
+        "debutYear": 2023,
+        "__v": 0
+    },
+    {
+        "_id": "6564fd251e870cc0eec614c7",
+        "name": "New Artist4",
+        "genre": "New Genre2",
+        "debutYear": 2023,
+        "__v": 0
+    },
+    {
+        "_id": "6564fd281e870cc0eec614c9",
+        "name": "New Artist5",
+        "genre": "New Genre2",
+        "debutYear": 2023,
+        "__v": 0
+    },
+    {
+        "_id": "6564fd2b1e870cc0eec614cb",
+        "name": "New Artist6",
+        "genre": "New Genre2",
+        "debutYear": 2023,
+        "__v": 0
+    }
 ]
 ```
 - ```GET``` /artists/:id
@@ -179,17 +238,26 @@ Example Response:
   - Parameters: `name` - The name of the artist.
   - Response: JSON array of songs by the specified artist.
   - Response Code: 200 OK
-  - Example Request: ```GET``` https://yam38-assignment-3-part-a.glitch.me/artists/Artist Name 1/songs
+  - Example Request: ```GET``` https://yam38-assignment3-part-b.glitch.me/artists/New Artist2/songs
   - Example Response:
     ```json
     [
       {
-        "title": "Song Title 1",
-        "artist": "Artist Name 1",
-        "genre": "Genre 1",
-        "year": 2020
+          "_id": "6564fb8a1e870cc0eec614b6",
+          "title": "New Song4",
+          "artist": "New Artist2",
+          "genre": "New Genre2",
+          "year": 2021,
+          "__v": 0
       },
-      ...
+      {
+          "_id": "6564fb901e870cc0eec614b8",
+          "title": "New Song6",
+          "artist": "New Artist2",
+          "genre": "New Genre2",
+          "year": 2021,
+          "__v": 0
+      }
     ]
     ```
   - If no songs are found for the artist, a 404 response is returned with the message "No songs found for this artist."
