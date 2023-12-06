@@ -24,7 +24,7 @@
 4. Order History
     - View List of Receipts
 
-## Frontend Endpoints
+## Frontend Features
 1. Login Page(one admin account login) + OAuth Custumer Login
 2. Customer View:
     - (Home Page)Product Listing | Shopping Cart
