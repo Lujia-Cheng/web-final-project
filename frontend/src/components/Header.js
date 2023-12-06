@@ -1,45 +1,56 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import SearchBar from "./SearchBar";
-import {Container, Row, Col, Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
-import {BsCart, BsPerson} from 'react-icons/bs';
+import {Link as RouterLink} from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PersonIcon from '@mui/icons-material/Person';
+import SearchBar from './SearchBar'; // Your SearchBar component
+import {Box, Link} from '@mui/material';
+
 function Header() {
   return (
     <header>
-      <Container fluid>
-        {/* First Row */}
-        <Row className="align-items-center">
-          <Col xs={3} md={2}>
-            <Navbar.Brand href="/">
-              <img src="https://placehold.co/600x400?text=logo" alt="Logo" style={{maxHeight: '50px'}}/>
-            </Navbar.Brand>
-          </Col>
-          <Col xs={6} md={8}>
-            <SearchBar/>
-          </Col>
-          <Col xs={3} md={2} className="text-right">
-            <Button variant="link">
-              <BsCart/>
-            </Button>
-            <Button variant="link">
-              <BsPerson/>
-            </Button>
-          </Col>
-        </Row>
+      <AppBar position="static" color="default" elevation={0}>
+        <Toolbar>
+          <Grid container alignItems="center">
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" component="div">
+                <RouterLink to="/" style={{textDecoration: 'none', color: 'inherit'}}>
+                  <img src="https://placehold.co/600x400?text=logo" alt="Logo" style={{maxHeight: '50px'}}/>
+                </RouterLink>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <SearchBar/>
+            </Grid>
+            <Grid item xs={12} md={4} sx={{textAlign: {xs: 'center', md: 'right'}}}>
+              <IconButton component={RouterLink} to="/cart" color="inherit">
+                <ShoppingCartIcon/>
+              </IconButton>
+              <IconButton component={RouterLink} to="/login" color="inherit">
+                <PersonIcon/>
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Toolbar>
 
-        <Row className="justify-content-center">
-          <Col>
-            <Nav className="justify-content-center">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/all-products">All Products</Nav.Link>
-              <Nav.Link href="/best-sellers">Best Sellers</Nav.Link>
-              <Nav.Link href="/customer-service">Customer Service</Nav.Link>
-              <Nav.Link href="/contact">Contact Us</Nav.Link>
-              <Nav.Link href="/about">About Us</Nav.Link>
-            </Nav>
-          </Col>
-        </Row>
-      </Container>
+        <Box sx={{display: 'flex', justifyContent: 'center', py: 1}}>
+          <Link component={RouterLink} to="/" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>Home</Link>
+          <Link component={RouterLink} to="/all-products" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>All
+            Products</Link>
+          <Link component={RouterLink} to="/best-sellers" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>Best
+            Sellers</Link>
+          <Link component={RouterLink} to="/customer-service" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>Customer
+            Service</Link>
+          <Link component={RouterLink} to="/contact" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>Contact
+            Us</Link>
+          <Link component={RouterLink} to="/about" sx={{mx: 2, textDecoration: 'none', color: 'inherit'}}>About
+            Us</Link>
+        </Box>
+      </AppBar>
     </header>
   );
 }

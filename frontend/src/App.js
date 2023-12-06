@@ -2,14 +2,8 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-
-
-// import Product from './pages/Product';
-import './App.css';
-import NotFound from "./pages/NotFound";
-import SearchBar from "./components/SearchBar";
+import {Admin, Home, Login, NotFound, Cart, Order} from './pages';
+import Button from "@mui/material/Button";
 
 function App() {
   function scrollToTop() {
@@ -25,12 +19,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
-        {/* todo Add all routes as needed */}
+        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/order" element={<Order/>}/>
+        {/* todo Add all routes */}
+
+
         <Route path="*" element={<NotFound/>}/>
       </Routes>
-      <button onClick={scrollToTop} style={{position: 'fixed', bottom: '20px', right: '20px'}}>
+      <Button onClick={scrollToTop} style={{position: 'fixed', bottom: '20px', right: '20px'}}>
         Back to Top
-      </button>
+      </Button>
       <Footer/>
     </Router>
   );

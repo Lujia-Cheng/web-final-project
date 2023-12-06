@@ -1,16 +1,31 @@
-import React from "react";
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import SearchIcon from '@mui/icons-material/Search';
+import {Box, InputBase, IconButton} from '@mui/material';
 
 function SearchBar() {
-
   return (
-    <div>
-      <form className="form-inline my-2 my-lg-0">
-        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  )
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: 'background.paper',
+        borderRadius: 1,
+        border: '1px solid',
+        borderColor: 'divider',
+      }}
+    >
+      <IconButton sx={{p: '10px'}} aria-label="search">
+        <SearchIcon/>
+      </IconButton>
+      <InputBase
+        sx={{ml: 1, flex: 1}}
+        placeholder="Search…"
+        inputProps={{'aria-label': 'search'}}
+      />
+    </Box>
+  );
 }
 
 export default SearchBar;
