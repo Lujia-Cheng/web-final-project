@@ -1,5 +1,6 @@
 # web-final-project
 
+## Backend Endpoint
 1. Login /login
     - success: user info, json
     - fail: error msg
@@ -23,7 +24,7 @@
 4. Order History
     - View List of Receipts
 
-# Frontend Endpoints
+## Frontend Endpoints
 1. Login Page(one admin account login) + OAuth Custumer Login
 2. Customer View:
     - (Home Page)Product Listing | Shopping Cart
