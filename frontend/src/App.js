@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import {Admin, Home, Login, NotFound, Order} from './pages';
 import Button from "@mui/material/Button";
+import Cart from "./components/Cart";
 
 function App() {
   function scrollToTop() {
