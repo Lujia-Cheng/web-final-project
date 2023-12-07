@@ -19,22 +19,23 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, retryWrites: true});
 
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
-// set the view engine
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views/");
 
-app.use(express.static(path.join(__dirname, "frontend", "build")));
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
-// Load routes
-const apiRouter = require("./routes/api");
-// const indexRouter = require("./routes/index");
+// todo API routes here
+// app.use('/api', apiRoutes);
 
-// app.use("/", indexRouter);
-app.use("/", apiRouter);
-
-// listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port " + listener.address().port);
+// All other GET requests not handled before will return React app for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
+});
+
+module.exports = app;
