@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -7,30 +7,53 @@ import Typography from '@mui/material/Typography';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
+  useEffect(() => {
+    // Redirect if already logged in as admin
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    if (isAdmin) {
+      window.location.href = '/admin';
+    }
+  }, []);
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value.trim(),
+    });
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!emailError && email && password) {
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email, password}),
-        });
+    try {
+      // Replace with your actual API call
+      const response = await fetch(`${process.env.BACKEND_API}/login`, { // todo check if this is correct
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-        if (response.ok) {
-          console.log('Login successful');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.user?.isAdmin) {
+          // Store admin state locally
+          localStorage.setItem('isAdmin', 'true');
+          localStorage.setItem('user', data.user.id); // todo check if this is correct
+          window.location.href = '/admin';
         } else {
-          console.log('Login failed');
+          localStorage.setItem('isAdmin', 'false');
+          window.location.href = '/cart';
         }
-      } catch (error) {
-        console.error('Login error:', error);
+      } else {
+        alert('Login failed');
       }
+    } catch (error) {
+      console.error('Login error:', error);
     }
   };
 
@@ -50,10 +73,8 @@ function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={!!emailError}
-            helperText={emailError}
+            value={formData.email}
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -64,8 +85,8 @@ function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
           <Button
             type="submit"

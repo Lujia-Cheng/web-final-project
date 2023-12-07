@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {Admin, Home, Login, NotFound, Cart, Order} from './pages';
+import {Admin, Home, Login, NotFound, Order} from './pages';
 import Button from "@mui/material/Button";
 
 function App() {
