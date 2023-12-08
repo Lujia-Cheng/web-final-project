@@ -402,17 +402,23 @@ app.get('/admin/customers', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    
-    
-    if (!userId) {
+    const objectId = mongoose.Types.ObjectId(userId);
+
+    const user = await Customers.findOne({ _id: objectId });
+
+    if (!user) {
       return res.status(404).send('User not found');
     }
-    
-    res.json(userId);
+
+    res.json(user);
   } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      return res.status(400).send('Invalid user ID format');
+    }
     res.status(500).send('Server error');
   }
 });
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
