@@ -29,6 +29,7 @@ const mongoDB = ("mongodb+srv://"+
                  +process.env.DATABASE);
 mongoose.connect(mongoDB);
 
+
 // Login Endpoint
 app.post('/login', async (req, res) => {
   // Extract email and password from request body
@@ -133,6 +134,14 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// app.post('/is-admin/:id', async (req, res)=>{
+//   const userId = req.params.id
+//   try {
+//    await  Customers.findByid()
+//   } catch (error){
+//     res.status(500).json({message: "Error finding user"})
+//   }
+// })
 
 // Product Listing
 app.get('/products', async (req, res) => {
