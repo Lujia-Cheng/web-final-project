@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import Button from "@mui/material/Button";
+import { useNavigate } from 'react-router-dom';
+
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +24,7 @@ const AllProducts = () => {
       fetchAllProducts().then(r => console.log(r));
     }, []
   )
-
+  const navigate = useNavigate();
   return (
     <div>
       <Grid container spacing={2} padding={10}>
@@ -52,7 +54,7 @@ const AllProducts = () => {
                 <Button size="small" color="primary">
                   Add to Cart
                 </Button>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary"   onClick={() => navigate(`/product/${product._id}`)}>
                   View Details
                 </Button>
               </CardActions>

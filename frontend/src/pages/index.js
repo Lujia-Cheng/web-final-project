@@ -5,3 +5,4 @@ export {default as Order} from './Order';
 export {default as Account} from './Account';
 export {default as Register} from './Register';
 export {default as AllProducts} from './AllProducts';
+export {default as ProductDetail} from './ProductDetail';
