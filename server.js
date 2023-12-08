@@ -411,7 +411,32 @@ app.get('/user/:id', async (req, res) => {
 });
 
 //Update user information
-// app.post('/user/:id', async (req, res) => )
+app.post('/user/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { email, address } = req.body; // Assuming you send 'email' and 'address' in the request body
+
+        // Find the user by ID and update their email and address
+        const updatedUser = await Customers.findOneAndUpdate(
+            { _id: userId },
+            { $set: { email: email, address: address } },
+            { new: true } // This option returns the modified document rather than the original
+        );
+
+        if(updatedUser) {
+            res.status(200).json(updatedUser);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        if (error instanceof mongoose.Error.CastError) {
+            res.status(400).send('Invalid user ID format');
+        } else {
+            console.error(error); // Log the error for debugging purposes
+            res.status(500).send('Server error');
+        }
+    }
+});
 
 // Handle 404 for undefined routes
 app.use(function(request, response) {
