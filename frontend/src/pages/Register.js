@@ -11,9 +11,6 @@ function Register() {
     password: '',
     email: '',
     address: '',
-    kind: '',
-    business_category: '',
-    admin_access_code: '',
   });
 
   const handleChange = (e) => {

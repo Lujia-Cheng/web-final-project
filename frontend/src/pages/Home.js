@@ -21,13 +21,13 @@ const Home = () => {
     return array;
   }
 
-  const fetchAllProducts = async () => {
+  const fetchRandomProducts = async (count) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/products`);
       if (response.ok) {
         let data = await response.json();
         data = shuffleArray(data); // Shuffle the array
-        setProducts(data.slice(0, 20)); // Optionally limit the number of products
+        setProducts(data.slice(0, count)); // Optionally limit the number of products
       } else {
         console.error('Failed to fetch products from server');
       }
@@ -37,14 +37,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-      fetchAllProducts().then(r => console.log(r));
+      fetchRandomProducts(30).then(r => console.log(r));
     }, []
   )
 
   return (
     <div>
       <Grid container spacing={2} padding={10}>
-        {products.map(product => ( // todo selected random products
+        {products.map(product => (
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={product._id}>
             <Card sx={{maxWidth: 345}}>
               <CardActionArea>
@@ -52,16 +52,16 @@ const Home = () => {
                   component="img"
                   alt={product.name}
                   height="140"
-                  image={product.image}
+                  image={product.image /*fixme cannot pass url, need to fetch first on server*/}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {product.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body1" >
                     ${product.single_selling_price}
                   </Typography>
-                  <Typography variant="body3">
+                  <Typography variant="body2" color="text.secondary">
                     {product.inventory_amount} left in stock
                   </Typography>
                 </CardContent>
