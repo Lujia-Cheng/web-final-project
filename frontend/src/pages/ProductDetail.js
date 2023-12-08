@@ -7,7 +7,7 @@ const ProductDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_API}/products/${id}`)
+    fetch(`${process.env.REACT_APP_BACKEND_API}/product/${id}`)
       .then(response => response.json())
       .then(data => setProduct(data))
       .catch(error => console.error('Error fetching product details:', error));
