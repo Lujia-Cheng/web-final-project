@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {Admin, Home, Login, NotFound, Order} from './pages';
+import {Admin, Home, Login, NotFound, Order, Register} from './pages';
 import Button from "@mui/material/Button";
 import Cart from "./components/Cart";
 
@@ -23,6 +23,7 @@ function App() {
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/order" element={<Order/>}/>
+        <Route path="/register" element={<Register/>}/>
         {/* todo Add all routes */}
 
 

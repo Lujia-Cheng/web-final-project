@@ -100,11 +100,11 @@ function Login() {
             fullWidth
             variant="contained"
             sx={{mt: 2, mb: 2, backgroundColor: '#000', '&:hover': {backgroundColor: '#333'}}}
-            startIcon={<GitHubIcon/>}
+            // startIcon={<GitHubIcon/>}
             component="a"
-            href="/auth/github"
+            href="/register"
           >
-            Log In with GitHub
+            Click to register
           </Button>
         </Box>
       </Box>
