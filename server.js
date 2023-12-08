@@ -85,7 +85,7 @@ app.post('/register', async (req, res) => {
     const { name, password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, is_admin } = req.body;
 
     // Basic data validation
-    if (!email || !password || !name || !address || !kind) {
+    if (!email || !password) {
       return res.status(400).json({ message: "Required fields are missing" });
     }
 
@@ -376,6 +376,12 @@ app.get('/order-history', async (req, res) => {
 app.use(function(request, response) {
   response.status(404).json({ message: "Resource not found" });
 });
+
+
+//admin 
+
+
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
