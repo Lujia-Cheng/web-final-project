@@ -85,7 +85,7 @@ function Cart() {
           <Button onclick={submitOrder} variant="contained" color="primary" sx={{marginTop: 2}} fullWidth>
             Submit Order
           </Button>
-          <Button onClick={clearCart} color="secondary" variant="outlined" sx={{marginTop: 1}} fullWidth>
+          <Button onClick={clearCart} variant="outlined" color="error" sx={{marginTop: 1}} fullWidth>
             Clear Cart
           </Button>
         </Paper>

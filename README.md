@@ -1,4 +1,6 @@
 # web-final-project
+ 
+> for grading purpose, please refer to [Report.md](./Report.md) for more details
 
 ## Backend Endpoint
 1. Login /login

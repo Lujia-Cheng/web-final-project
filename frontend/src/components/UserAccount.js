@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  TextField,
+  Avatar,
+  Box,
   Button,
   Container,
-  Typography,
-  Box,
-  Paper,
   Divider,
   List,
   ListItem,
-  ListItemText,
   ListItemAvatar,
-  Avatar,
+  ListItemText,
+  Paper,
+  TextField,
+  Typography,
 } from '@mui/material';
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState({ email: '', address: '' });
-  const [userInput, setUserInput] = useState({ email: '', address: '' });
+  const [userData, setUserData] = useState({email: '', address: ''});
+  const [userInput, setUserInput] = useState({email: '', address: ''});
   const [orderHistory, setOrderHistory] = useState([]);
   const userId = sessionStorage.getItem('userId');
 
@@ -28,7 +28,7 @@ const UserProfile = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setUserData({ email: data.email, address: data.address });
+        setUserData({email: data.email, address: data.address});
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -40,7 +40,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
-        const queryString = new URLSearchParams({ buyer_id: userId }).toString();
+        const queryString = new URLSearchParams({buyer_id: userId}).toString();
         const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/order-history?${queryString}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -58,7 +58,7 @@ const UserProfile = () => {
   }, [userId]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setUserInput(prevData => ({
       ...prevData,
       [name]: value
@@ -74,15 +74,15 @@ const UserProfile = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/user/${userId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const updatedData = await response.json();
-      setUserData({ email: updatedData.email, address: updatedData.address });
-      setUserInput({ email: '', address: '' }); // Reset the form inputs
+      setUserData({email: updatedData.email, address: updatedData.address});
+      setUserInput({email: '', address: ''}); // Reset the form inputs
     } catch (error) {
       console.error('Submit error:', error);
     }
@@ -103,15 +103,15 @@ const UserProfile = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          User Profile
+          Profile
         </Typography>
-        <Paper elevation={2} sx={{ padding: 2, marginBottom: 2 }}>
-          <Typography variant="h6">User Information</Typography>
-          <Divider sx={{ marginBottom: 2 }} />
+        <Paper elevation={2} sx={{padding: 2, marginBottom: 2}}>
+          <Typography variant="h6">Contact Information</Typography>
+          <Divider sx={{marginBottom: 2}}/>
           <Typography>Email: {userData.email}</Typography>
           <Typography>Address: {userData.address}</Typography>
         </Paper>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
           <TextField
             margin="normal"
             required
@@ -137,23 +137,24 @@ const UserProfile = () => {
             value={userInput.address}
             onChange={handleChange}
           />
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2 }}>
-            <Button type="submit" variant="contained">
-              Update Profile
-            </Button>
+          <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2}}>
+
             <Button onClick={handleReturnHome} variant="contained">
-              Return Home
+              Return
+            </Button>
+            <Button type="submit" variant="contained" color="error">
+              Update Profile
             </Button>
           </Box>
         </Box>
-        <Paper elevation={2} sx={{ padding: 2, marginTop: 2 }}>
+        <Paper elevation={2} sx={{padding: 2, marginTop: 2}}>
           <Typography variant="h6">Order History</Typography>
-          <Divider sx={{ marginBottom: 2 }} />
+          <Divider sx={{marginBottom: 2}}/>
           <List>
             {orderHistory.map((order) => (
               <ListItem key={order._id}>
                 <ListItemAvatar>
-                  <Avatar src={order.product_id.image} alt={order.product_id.name} />
+                  <Avatar src={order.product_id.image} alt={order.product_id.name}/>
                 </ListItemAvatar>
                 <ListItemText
                   primary={`${order.product_id.name} - Quantity: ${order.count}`}

@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import Button from "@mui/material/Button";
 import {useCart} from "../contexts/CartContext";
+import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
 
+  const navigate = useNavigate();
   const {cart, setCart} = useCart();
   const [products, setProducts] = useState([]);
   const shuffleArray = (array) => {
@@ -67,6 +69,9 @@ const Home = () => {
     setCart(newCart);
 
   }
+  const handleViewDetail = (product) => {
+// todo
+  }
 
   return (
     <div>
@@ -79,7 +84,7 @@ const Home = () => {
                   component="img"
                   alt={product.name}
                   height="140"
-                  image={`https://loremflickr.com/g/140/140/product?lock=${product._id}`}
+                  image={product.image}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -97,7 +102,7 @@ const Home = () => {
                 <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
                   Add to Cart
                 </Button>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => navigate(`/product/${product._id}`)}>
                   View Details
                 </Button>
               </CardActions>

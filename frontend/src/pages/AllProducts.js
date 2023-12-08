@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import Button from "@mui/material/Button";
 import {useCart} from "../contexts/CartContext";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 const AllProducts = () => {
@@ -51,7 +51,7 @@ const AllProducts = () => {
     }
     setCart(newCart);
 
-  } 
+  }
   const navigate = useNavigate();
   return (
     <div>
@@ -79,10 +79,10 @@ const AllProducts = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                 <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
+                <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
                   Add to Cart
                 </Button>
-                <Button size="small" color="primary"   onClick={() => navigate(`/product/${product._id}`)}>
+                <Button size="small" color="primary" onClick={() => navigate(`/product/${product._id}`)}>
                   View Details
                 </Button>
               </CardActions>
