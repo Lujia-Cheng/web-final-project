@@ -22,7 +22,7 @@ const ActionButtons = () => {
       <IconButton component={RouterLink} to="/cart" color="inherit">
         <ShoppingCartIcon/>
       </IconButton>
-      <IconButton component={RouterLink} to="/admin">
+      <IconButton component={RouterLink} to="/account">
         <AccountCircle/>
       </IconButton>
       {sessionStorage.getItem( "userId") ? (

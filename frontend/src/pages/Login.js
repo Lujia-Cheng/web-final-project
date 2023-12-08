@@ -27,20 +27,27 @@ function Login() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log('Success:', data);
-      sessionStorage.setItem('userId', data.user?.id);
-      navigate('/account');
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Success:', data);
+        sessionStorage.setItem('userId', data.user?.id);
+        if (data.user?.is_admin) {
+          sessionStorage.setItem('isAdmin', 'true');
+          navigate('/account');
+        } else {
+          sessionStorage.setItem('isAdmin', 'false');
+          navigate('/');
+        }
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
