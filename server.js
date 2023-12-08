@@ -143,10 +143,30 @@ app.post('/register', async (req, res) => {
 //   }
 // })
 
-// Product Listing
+// // Product Listing
+// app.get('/products', async (req, res) => {
+//   const products = await Product.find({});
+//   res.json(products);
+// });
+
+// Product Listing with Modified Image URL
 app.get('/products', async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  try {
+    let products = await Product.find({});
+
+    // Modify the image URL for each product
+    products = products.map(product => {
+      return {
+        ...product.toObject(), // Convert the Mongoose document to a plain JavaScript object
+        image: `${product.image}?random=${product._id}` // Append the query parameter to the image URL
+      };
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).json({ message: "Error retrieving products", error: error });
+  }
 });
 
 // Product Creation
@@ -201,20 +221,42 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
-// Product details
-app.get('/products/:id', async (req, res) => {
+// Product details with Modified Image URL
+app.get('/product/:id', async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
+
         if (!product) {
             return res.status(404).send('Product not found');
         }
 
-        res.json(product);
+        // Modify the image URL
+        const productWithModifiedImageUrl = {
+            ...product.toObject(), // Convert the Mongoose document to a plain JavaScript object
+            image: `${product.image}?random=${product._id}` // Append the query parameter to the image URL
+        };
+
+        res.json(productWithModifiedImageUrl);
     } catch (error) {
         res.status(500).send('Server error');
     }
 });
+
+// // Product details
+// app.get('/products/:id', async (req, res) => {
+//     try {
+//         const productId = req.params.id;
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).send('Product not found');
+//         }
+
+//         res.json(product);
+//     } catch (error) {
+//         res.status(500).send('Server error');
+//     }
+// });
 
 // Add to Cart
 app.post('/cart', async (req, res) => {
