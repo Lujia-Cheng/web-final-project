@@ -201,6 +201,22 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
+// Product details
+app.get('/product/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+
+        res.json(product);
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
 // Add to Cart
 app.post('/cart', async (req, res) => {
   const { product_id, buyer_id, count } = req.body;
