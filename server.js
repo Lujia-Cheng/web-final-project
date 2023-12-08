@@ -382,7 +382,7 @@ app.use(function(request, response) {
 app.get('/admin/products', async (req, res) => {
     try {
         const products = await Product.find();
-        res.json(products);
+        res.status(200).json(products);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -392,12 +392,23 @@ app.get('/admin/products', async (req, res) => {
 app.get('/admin/customers', async (req, res) => {
     try {
         const customers = await Customers.find();
-        res.json(customers);
+        res.status(200).json(customers);
     } catch (error) {
         res.status(500).send(error.message);
     }
 });
 
+//User information
+app.get('/user/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = users[userId];
+    
+    if (!user) {
+      return 
+    }
+  }
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
