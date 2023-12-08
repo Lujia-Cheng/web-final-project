@@ -372,11 +372,6 @@ app.get('/order-history', async (req, res) => {
   }
 });
 
-// Handle 404 for undefined routes
-app.use(function(request, response) {
-  response.status(404).json({ message: "Resource not found" });
-});
-
 
 // Route to get all products
 app.get('/admin/products', async (req, res) => {
@@ -402,14 +397,10 @@ app.get('/admin/customers', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    const objectId = mongoose.Types.ObjectId(userId);
-
-    const user = await Customers.findOne({ _id: objectId });
-
+    const user = await Customers.findOne({ _id: userId });
     if (!user) {
       return res.status(404).send('User not found');
     }
-
     res.json(user);
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
@@ -417,6 +408,14 @@ app.get('/user/:id', async (req, res) => {
     }
     res.status(500).send('Server error');
   }
+});
+
+//Update user information
+// app.post('/user/:id', async (req, res) => )
+
+// Handle 404 for undefined routes
+app.use(function(request, response) {
+  response.status(404).json({ message: "Resource not found" });
 });
 
 
