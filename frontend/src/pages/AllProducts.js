@@ -51,7 +51,8 @@ const AllProducts = () => {
     }
     setCart(newCart);
 
-  }  const navigate = useNavigate();
+  } 
+  const navigate = useNavigate();
   return (
     <div>
       <Grid container spacing={2} padding={10}>
