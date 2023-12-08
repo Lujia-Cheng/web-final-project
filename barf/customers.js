@@ -14,7 +14,7 @@ const customersSchema = new mongoose.Schema({
   gender: String,
   age: Number,
   income: Number,
-  create_at: { type: Date, default: Date.now },
+  create_at: { type: Date, default: Date.now},
   is_admin: {type:Boolean, required:true}
 });
 
