@@ -202,12 +202,10 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // Product details
-app.get('/product/:id', async (req, res) => {
+app.get('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
-        console.log(product);
         const product = await Product.findById(productId);
-        console.log(product);
         if (!product) {
             return res.status(404).send('Product not found');
         }
