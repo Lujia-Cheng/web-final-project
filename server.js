@@ -378,9 +378,25 @@ app.use(function(request, response) {
 });
 
 
-//admin 
+// Route to get all products
+app.get('/admin/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
-
+// Route to get all customers
+app.get('/admin/customers', async (req, res) => {
+    try {
+        const customers = await Customers.find();
+        res.json(customers);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
 
 // listen for requests :)
