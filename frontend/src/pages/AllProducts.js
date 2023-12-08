@@ -2,32 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import Button from "@mui/material/Button";
 
-const Home = () => {
-
+const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (currentIndex !== 0) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-  }
 
   const fetchAllProducts = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/products`);
       if (response.ok) {
-        let data = await response.json();
-        data = shuffleArray(data); // Shuffle the array
-        setProducts(data.slice(0, 20)); // Optionally limit the number of products
+        const data = await response.json();
+        setProducts(data);
       } else {
         console.error('Failed to fetch products from server');
       }
@@ -35,7 +18,6 @@ const Home = () => {
       console.error('Error fetching products:', error);
     }
   };
-
   useEffect(() => {
       fetchAllProducts().then(r => console.log(r));
     }, []
@@ -82,4 +64,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AllProducts;

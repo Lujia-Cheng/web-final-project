@@ -7,7 +7,7 @@ import ActionButtons from "./ActionButtons";
 
 function Header() {
   return (
-    <AppBar position="static" color="default" elevation={0}>
+    <AppBar spacing={4} position="static" color="default" elevation={0}>
       <Toolbar>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>

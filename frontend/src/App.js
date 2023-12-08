@@ -1,10 +1,10 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
-import {Account, Home, Login, NotFound, Order,Register} from './pages';
+import {Account, Home, Login, NotFound, Order, Register, AllProducts} from './pages';
 import Button from "@mui/material/Button";
 import Cart from "./components/Cart";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 function App() {
   function scrollToTop() {
@@ -26,15 +26,15 @@ function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/order" element={<Order/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/all-products" element={<AllProducts/>}/>
         {/* todo Add all routes */}
 
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       <Button onClick={scrollToTop} style={{position: 'fixed', bottom: '20px', right: '20px'}}>
-        Back to Top
+        <ArrowCircleUpIcon/>
       </Button>
-      <Footer/>
     </Router>
   );
 }
