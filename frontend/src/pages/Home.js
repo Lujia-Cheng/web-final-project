@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import Button from "@mui/material/Button";
+import {useCart} from "../contexts/CartContext";
 
 const Home = () => {
 
+  const {cart, setCart} = useCart();
   const [products, setProducts] = useState([]);
   const shuffleArray = (array) => {
     let currentIndex = array.length, randomIndex;
@@ -17,7 +19,6 @@ const Home = () => {
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
-
     return array;
   }
 
@@ -41,6 +42,32 @@ const Home = () => {
     }, []
   )
 
+  const handleAddToCart = (product) => {
+    let newCart;
+    const existingItem = cart.find(item => item.product_id._id === product._id);
+    if (existingItem) {
+      newCart = cart.map(item => {
+        if (item.product_id._id === product._id) {
+          return {
+            ...item,
+            count: item.count + 1
+          };
+        }
+        return item;
+      });
+    } else {
+      newCart = [
+        ...cart,
+        {
+          product_id: product,
+          count: 1
+        }
+      ];
+    }
+    setCart(newCart);
+
+  }
+
   return (
     <div>
       <Grid container spacing={2} padding={10}>
@@ -52,13 +79,13 @@ const Home = () => {
                   component="img"
                   alt={product.name}
                   height="140"
-                  image={product.image /*fixme cannot pass url, need to fetch first on server*/}
+                  image={`https://loremflickr.com/g/140/140/product?lock=${product._id}`}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {product.name}
                   </Typography>
-                  <Typography variant="body1" >
+                  <Typography variant="body1">
                     ${product.single_selling_price}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -67,7 +94,7 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
                   Add to Cart
                 </Button>
                 <Button size="small" color="primary">
