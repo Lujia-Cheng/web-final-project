@@ -402,11 +402,15 @@ app.get('/admin/customers', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = users[userId];
     
-    if (!user) {
-      return 
+    
+    if (!userId) {
+      return res.status(404).send('User not found');
     }
+    
+    res.json(userId);
+  } catch (error) {
+    res.status(500).send('Server error');
   }
 });
 
