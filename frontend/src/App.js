@@ -1,8 +1,8 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {Admin, Home, Login, NotFound, Order, Register} from './pages';
+import {Account, Home, Login, NotFound, Order,Register} from './pages';
 import Button from "@mui/material/Button";
 import Cart from "./components/Cart";
 
@@ -16,11 +16,13 @@ function App() {
 
   return (
     <Router>
-      <Header/>
+      <header>
+        <Header/>
+      </header>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/account" element={<Account/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/order" element={<Order/>}/>
         <Route path="/register" element={<Register/>}/>

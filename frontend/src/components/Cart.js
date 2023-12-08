@@ -10,11 +10,12 @@ function Cart() {
     // Function to fetch cart from the server
     const fetchCartFromServer = async (userId) => {
       try {
-        const response = await fetch(`${process.env.BACKEND_API}/cart?buyer_id=${userId}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/cart?buyer_id=${userId}`);
         if (response.ok) {
           const data = await response.json();
           setCart(data);
-          localStorage.setItem('cart', JSON.stringify(data)); // Update local storage
+          localStorage.setItem('cart', JSON.stringify(data));
+          // Update local storage
         } else {
           console.error('Failed to fetch cart from server');
         }

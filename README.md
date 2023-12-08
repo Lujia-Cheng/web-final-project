@@ -13,8 +13,8 @@
             - Product Name
             - img
             - ...?
-    - ```POST``` Product Creation (Admin)
-    - ```DELETE``` Product Deletion (Admin)
+    - ```POST``` Product Creation (Account)
+    - ```DELETE``` Product Deletion (Account)
 3. Shopping Cart
     - ```POST``` Add to cart
     - ```POST``` Place Order 
@@ -29,6 +29,6 @@
 2. Customer View:
     - (Home Page)Product Listing | Shopping Cart
     - Order History List
-3. Admin View:
+3. Account View:
     - Account List: User Name, list of transaction
     - Product Update - CRUD

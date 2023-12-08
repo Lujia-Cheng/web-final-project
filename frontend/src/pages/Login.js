@@ -1,67 +1,64 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import Button from "@mui/material/Button";
+import {Avatar, Checkbox, CssBaseline, FormControlLabel, Grid, Link} from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {useNavigate} from "react-router-dom";
 
+// todo remember to clear JWT every 24 hour
 function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Redirect if already logged in as admin
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
-    if (isAdmin) {
-      window.location.href = '/admin';
-    }
-  }, []);
 
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value.trim(),
-    });
-  }
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      // Replace with your actual API call
-      const response = await fetch(`${process.env.BACKEND_API}/login`, { // todo check if this is correct
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.user?.isAdmin) {
-          // Store admin state locally
-          localStorage.setItem('isAdmin', 'true');
-          localStorage.setItem('user', data.user.id); // todo check if this is correct
-          window.location.href = '/admin';
-        } else {
-          localStorage.setItem('isAdmin', 'false');
-          window.location.href = '/cart';
-        }
-      } else {
-        alert('Login failed');
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      email: formData.get('email'),
+      password: formData.get('password')
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_API}/login`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
-    } catch (error) {
-      console.error('Login error:', error);
-    }
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Success:', data);
+      sessionStorage.setItem('userId', data.user?.id);
+      navigate('/account');
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   };
 
   return (
-    <Container maxWidth="xs">
-      <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline/>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <LockOutlinedIcon/>
+        </Avatar>
         <Typography component="h1" variant="h5">
-          Admin Login
+          Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
           <TextField
@@ -73,8 +70,7 @@ function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            value={formData.email}
-            onChange={handleChange}
+
           />
           <TextField
             margin="normal"
@@ -85,8 +81,11 @@ function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
+
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary"/>}
+            label="Remember me"
           />
           <Button
             type="submit"
@@ -94,18 +93,20 @@ function Login() {
             variant="contained"
             sx={{mt: 3, mb: 2}}
           >
-            Log In
+            Sign In
           </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{mt: 2, mb: 2, backgroundColor: '#000', '&:hover': {backgroundColor: '#333'}}}
-            // startIcon={<GitHubIcon/>}
-            component="a"
-            href="/register"
-          >
-            Click to register
-          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
