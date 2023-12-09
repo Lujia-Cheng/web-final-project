@@ -82,8 +82,8 @@ app.post('/logout', (req, res) => {
 app.post('/register', async (req, res) => {
   try {
     // Extract and validate data
-    const { name, password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, is_admin } = req.body;
-
+    const { name='', password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, admin_access_code } = req.body;
+ 
     // Basic data validation
     if (!email || !password) {
       return res.status(400).json({ message: "Required fields are missing" });
@@ -123,7 +123,7 @@ app.post('/register', async (req, res) => {
       age,
       income,
       create_at: new Date(),
-      is_admin
+      is_admin: admin_access_code === process.env.PASSWORD?true:false
     });
 
     await customer.save();
