@@ -407,7 +407,7 @@ app.post("/cart/order", async (req, res) => {
     const cartItems = await Bucket.find({ buyer_id: buyer_id });
 
     if (cartItems.length === 0) {
-      return res.status(400).json({ message: "No items in cart" });
+       return res.status(400).json({ message: "No items in cart" });
     }
 
     // Start a session for a transaction
