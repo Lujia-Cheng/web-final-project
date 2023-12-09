@@ -154,10 +154,10 @@ const UserProfile = () => {
           {orderHistory.map((order) => (
             <ListItem key={order._id}>
               <ListItemAvatar>
-                <Avatar src={order.product.image} alt={order.product.name}/>
+                <Avatar src={order.product_id.image} alt={order.product_id.name}/>
               </ListItemAvatar>
               <ListItemText
-                primary={`${order.product.name} - Quantity: ${order.count}`}
+                primary={`${order.product_id.name} - Quantity: ${order.count}`}
                 secondary={`Order Date: ${new Date(order.create_at).toLocaleDateString()}`}
               />
             </ListItem>

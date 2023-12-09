@@ -38,14 +38,18 @@ function Cart() {
 
   const submitCartItems = async () => {
     return Promise.all(cart.map((item) => {
+      const body = JSON.stringify(
+        {
+          product_id: item.product._id,
+          buyer_id: sessionStorage.getItem("userId"),
+          count: item.count
+        }
+      )
+      console.log(body)
       return fetch(`${process.env.REACT_APP_BACKEND_API}/cart`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          product_id: item.product._id,
-          buyer_id: localStorage.getItem("userId"),
-          count: item.count
-        })
+        body: body
       });
     }));
   };
@@ -57,7 +61,7 @@ function Cart() {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          buyer_id: localStorage.getItem("userId"),
+          buyer_id: sessionStorage.getItem("userId"),
         })
       });
 
