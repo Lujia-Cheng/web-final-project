@@ -1,11 +1,11 @@
 // server.js
 // init project
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const validator = require('validator');
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(cors());
@@ -19,19 +19,19 @@ const Transactions = require("./barf/transactions.js");
 
 // Establish a connection with the Mongo Database
 // (Ensure that the .env file is set up with USERNAME, PASSWORD, HOST, and DATABASE)
-const mongoDB = ("mongodb+srv://"+
-                 process.env.USERNAME+
-                 ":"
-                 +process.env.PASSWORD+
-                 "@"
-                 +process.env.HOST+
-                 "/"
-                 +process.env.DATABASE);
+const mongoDB =
+  "mongodb+srv://" +
+  process.env.USERNAME +
+  ":" +
+  process.env.PASSWORD +
+  "@" +
+  process.env.HOST +
+  "/" +
+  process.env.DATABASE;
 mongoose.connect(mongoDB);
 
-
 // Login Endpoint
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
   // Extract email and password from request body
   const { email, password } = req.body;
 
@@ -39,22 +39,26 @@ app.post('/login', async (req, res) => {
     // Check if user exists
     const user = await Customers.findOne({ email: email });
     if (!user) {
-      return res.status(401).json({ success: false, message: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
     }
 
     // Compare provided password with hashed password in the database
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ success: false, message: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
     }
 
     // Create JWT token
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET, // Ensure you have a JWT_SECRET in your environment variables
-      { expiresIn: '24h' }
+      { expiresIn: "24h" }
     );
-    
+
     // Successful login - return user info and token
     res.status(200).json({
       success: true,
@@ -64,8 +68,8 @@ app.post('/login', async (req, res) => {
         name: user.name,
         email: user.email,
         kind: user.kind,
-        is_admin: user.is_admin
-      }
+        is_admin: user.is_admin,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: "Error during login", error: error });
@@ -73,17 +77,33 @@ app.post('/login', async (req, res) => {
 });
 
 // logout
-app.post('/logout', (req, res) => {
+app.post("/logout", (req, res) => {
   // Inform the client to clear the token
-  res.json({ success: true, message: "Logged out successfully. Please clear your token." });
+  res.json({
+    success: true,
+    message: "Logged out successfully. Please clear your token.",
+  });
 });
 
 // register endpoint
-app.post('/register', async (req, res) => {
+app.post("/register", async (req, res) => {
   try {
     // Extract and validate data
-    const { name, password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, admin_access_code } = req.body;
- 
+    const {
+      name,
+      password,
+      email,
+      address,
+      kind,
+      business_category,
+      annual_income,
+      marriage_status,
+      gender,
+      age,
+      income,
+      admin_access_code,
+    } = req.body;
+
     // Basic data validation
     if (!email || !password) {
       return res.status(400).json({ message: "Required fields are missing" });
@@ -95,8 +115,17 @@ app.post('/register', async (req, res) => {
     }
 
     // Validate password strength (you can adjust the criteria as needed)
-    if (!validator.isStrongPassword(password, { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1 })) {
-      return res.status(400).json({ message: "Password does not meet the strength criteria" });
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+      })
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Password does not meet the strength criteria" });
     }
 
     // Check if user already exists
@@ -123,14 +152,16 @@ app.post('/register', async (req, res) => {
       age,
       income,
       create_at: new Date(),
-      is_admin: admin_access_code === process.env.PASSWORD?true:false
+      is_admin: admin_access_code === process.env.PASSWORD ? true : false,
     });
 
     await customer.save();
 
     res.status(201).json({ message: "Account created successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error registering account", error: error });
+    res
+      .status(500)
+      .json({ message: "Error registering account", error: error });
   }
 });
 
@@ -150,31 +181,33 @@ app.post('/register', async (req, res) => {
 // });
 
 // Product Listing with Modified Image URL
-app.get('/products', async (req, res) => {
+app.get("/products", async (req, res) => {
   try {
     let products = await Product.find({});
 
     // Modify the image URL for each product
-    products = products.map(product => {
+    products = products.map((product) => {
       return {
         ...product.toObject(), // Convert the Mongoose document to a plain JavaScript object
-        image: `${product.image}?random=${product._id}` // Append the query parameter to the image URL
+        image: `${product.image}?random=${product._id}`, // Append the query parameter to the image URL
       };
     });
 
     res.json(products);
   } catch (error) {
     console.error(error); // Log the error for debugging purposes
-    res.status(500).json({ message: "Error retrieving products", error: error });
+    res
+      .status(500)
+      .json({ message: "Error retrieving products", error: error });
   }
 });
 
 // Product Creation
-app.post('/products', async (req, res) => {
+app.post("/products", async (req, res) => {
   // Ensure the user is an admin
   // Extract product details from request body
   const productDetails = req.body;
-  
+
   try {
     // Create and save the new product
     const newProduct = new Product(productDetails);
@@ -187,13 +220,15 @@ app.post('/products', async (req, res) => {
 });
 
 // Product Update
-app.patch('/products/:id', async (req, res) => {
+app.patch("/products/:id", async (req, res) => {
   const productId = req.params.id;
   const updates = req.body;
 
   try {
     // Find the product by ID and update it
-    const updatedProduct = await Product.findByIdAndUpdate(productId, updates, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updates, {
+      new: true,
+    });
 
     if (!updatedProduct) {
       return res.status(404).json({ message: "Product not found" });
@@ -206,7 +241,7 @@ app.patch('/products/:id', async (req, res) => {
 });
 
 // Product Deletion
-app.delete('/products/:id', async (req, res) => {
+app.delete("/products/:id", async (req, res) => {
   // Ensure the user is an admin
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
@@ -222,25 +257,25 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // Product details with Modified Image URL
-app.get('/product/:id', async (req, res) => {
-    try {
-        const productId = req.params.id;
-        const product = await Product.findById(productId);
+app.get("/product/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
 
-        if (!product) {
-            return res.status(404).send('Product not found');
-        }
-
-        // Modify the image URL
-        const productWithModifiedImageUrl = {
-            ...product.toObject(), // Convert the Mongoose document to a plain JavaScript object
-            image: `${product.image}?random=${product._id}` // Append the query parameter to the image URL
-        };
-
-        res.json(productWithModifiedImageUrl);
-    } catch (error) {
-        res.status(500).send('Server error');
+    if (!product) {
+      return res.status(404).send("Product not found");
     }
+
+    // Modify the image URL
+    const productWithModifiedImageUrl = {
+      ...product.toObject(), // Convert the Mongoose document to a plain JavaScript object
+      image: `${product.image}?random=${product._id}`, // Append the query parameter to the image URL
+    };
+
+    res.json(productWithModifiedImageUrl);
+  } catch (error) {
+    res.status(500).send("Server error");
+  }
 });
 
 // // Product details
@@ -259,7 +294,7 @@ app.get('/product/:id', async (req, res) => {
 // });
 
 // Add to Cart
-app.post('/cart', async (req, res) => {
+app.post("/cart", async (req, res) => {
   const { product_id, buyer_id, count } = req.body;
 
   try {
@@ -272,7 +307,10 @@ app.post('/cart', async (req, res) => {
     }
 
     // Check if the product already exists in the cart for the given buyer
-    let cartItem = await Bucket.findOne({ product_id: product_id, buyer_id: buyer_id });
+    let cartItem = await Bucket.findOne({
+      product_id: product_id,
+      buyer_id: buyer_id,
+    });
 
     if (cartItem) {
       // If it exists, increment the count
@@ -290,9 +328,8 @@ app.post('/cart', async (req, res) => {
   }
 });
 
-
 // clear cart
-app.delete('/cart/clear', async (req, res) => {
+app.delete("/cart/clear", async (req, res) => {
   const { buyer_id } = req.body;
 
   try {
@@ -306,7 +343,7 @@ app.delete('/cart/clear', async (req, res) => {
 });
 
 // delete cart item by ID
-app.delete('/cart/item/:id', async (req, res) => {
+app.delete("/cart/item/:id", async (req, res) => {
   const itemId = req.params.id; // Get the item ID from the URL parameter
   const { buyer_id } = req.body; // Assuming buyer_id is sent in the request body
 
@@ -315,7 +352,11 @@ app.delete('/cart/item/:id', async (req, res) => {
     const cartItem = await Bucket.findOne({ _id: itemId, buyer_id: buyer_id });
 
     if (!cartItem) {
-      return res.status(404).json({ message: "Cart item not found or does not belong to the buyer" });
+      return res
+        .status(404)
+        .json({
+          message: "Cart item not found or does not belong to the buyer",
+        });
     }
 
     // Delete the found cart item
@@ -328,30 +369,37 @@ app.delete('/cart/item/:id', async (req, res) => {
 });
 
 // Update Cart Item Count By ID
-app.patch('/cart/item/:id', async (req, res) => {
+app.patch("/cart/item/:id", async (req, res) => {
   const itemId = req.params.id; // Get the item ID from the URL parameter
   const { newCount, buyer_id } = req.body; // Assuming the new count and buyer_id are sent in the request body
 
   try {
     // Find the cart item by ID and buyer_id, then update its count
     const updatedCartItem = await Bucket.findOneAndUpdate(
-      { _id: itemId, buyer_id: buyer_id }, 
-      { count: newCount }, 
+      { _id: itemId, buyer_id: buyer_id },
+      { count: newCount },
       { new: true }
     );
 
     if (!updatedCartItem) {
-      return res.status(404).json({ message: "Cart item not found or does not belong to the buyer" });
+      return res
+        .status(404)
+        .json({
+          message: "Cart item not found or does not belong to the buyer",
+        });
     }
 
-    res.json({ message: "Cart item count updated successfully", item: updatedCartItem });
+    res.json({
+      message: "Cart item count updated successfully",
+      item: updatedCartItem,
+    });
   } catch (error) {
     res.status(500).json({ message: "Error updating cart item", error: error });
   }
 });
 
 // Place Order
-app.post('/cart/order', async (req, res) => {
+app.post("/cart/order", async (req, res) => {
   const { buyer_id } = req.body;
 
   try {
@@ -374,15 +422,17 @@ app.post('/cart/order', async (req, res) => {
           product_id: item.product_id,
           buyer_id: item.buyer_id,
           count: item.count,
-          create_at: new Date()
+          create_at: new Date(),
         });
         await transaction.save({ session });
 
         // Update product inventory and calculate profit
         const product = await Product.findById(item.product_id);
-        product.inventory_amount -= item.count;  // Decrease inventory
-        product.selling_amount += item.count;   // Increase selling amount
-        product.profit += (product.single_selling_price - product.single_cost_price) * item.count;
+        product.inventory_amount -= item.count; // Decrease inventory
+        product.selling_amount += item.count; // Increase selling amount
+        product.profit +=
+          (product.single_selling_price - product.single_cost_price) *
+          item.count;
         await product.save({ session });
       }
 
@@ -406,102 +456,108 @@ app.post('/cart/order', async (req, res) => {
 });
 
 // Get Cart List
-app.get('/cart', async (req, res) => {
+app.get("/cart", async (req, res) => {
   const { buyer_id } = req.query;
 
   try {
-    const cartItems = await Bucket.find({ buyer_id: buyer_id }).populate('product_id');
+    const cartItems = await Bucket.find({ buyer_id: buyer_id }).populate(
+      "product_id"
+    );
     res.json(cartItems);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving cart items", error: error });
+    res
+      .status(500)
+      .json({ message: "Error retrieving cart items", error: error });
   }
 });
 
 // Transaction History
-app.get('/order-history', async (req, res) => {
+app.get("/order-history", async (req, res) => {
   const { buyer_id } = req.query;
 
   try {
-    const transactions = await Transactions.find({ buyer_id: buyer_id }).populate('product_id');
+    const transactions = await Transactions.find({
+      buyer_id: buyer_id,
+    }).populate("product_id");
     res.json(transactions);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving transaction history", error: error });
+    res
+      .status(500)
+      .json({ message: "Error retrieving transaction history", error: error });
   }
 });
 
-
 // Route to get all products
-app.get('/admin/products', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+app.get("/admin/products", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 // Route to get all customers
-app.get('/admin/customers', async (req, res) => {
-    try {
-        const customers = await Customers.find();
-        res.status(200).json(customers);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+app.get("/admin/customers", async (req, res) => {
+  try {
+    const customers = await Customers.find();
+    res.status(200).json(customers);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 //User information
-app.get('/user/:id', async (req, res) => {
+app.get("/user/:id", async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await Customers.findOne({ _id: userId });
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).send("User not found");
     }
     res.json(user);
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      return res.status(400).send('Invalid user ID format');
+      return res.status(400).send("Invalid user ID format");
     }
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
 //Update user information
-app.post('/user/:id', async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const { email, address } = req.body; // Assuming you send 'email' and 'address' in the request body
+app.post("/user/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { email, address } = req.body; // Assuming you send 'email' and 'address' in the request body
 
-        // Find the user by ID and update their email and address
-        const updatedUser = await Customers.findOneAndUpdate(
-            { _id: userId },
-            { $set: { email: email, address: address } },
-            { new: true } // This option returns the modified document rather than the original
-        );
+    // Find the user by ID and update their email and address
+    const updatedUser = await Customers.findOneAndUpdate(
+      { _id: userId },
+      { $set: { email: email, address: address } },
+      { new: true } // This option returns the modified document rather than the original
+    );
 
-        if(updatedUser) {
-            res.status(200).json(updatedUser);
-        } else {
-            res.status(404).send('User not found');
-        }
-    } catch (error) {
-        if (error instanceof mongoose.Error.CastError) {
-            res.status(400).send('Invalid user ID format');
-        } else {
-            console.error(error); // Log the error for debugging purposes
-            res.status(500).send('Server error');
-        }
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).send("User not found");
     }
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      res.status(400).send("Invalid user ID format");
+    } else {
+      console.error(error); // Log the error for debugging purposes
+      res.status(500).send("Server error");
+    }
+  }
 });
 
 // Handle 404 for undefined routes
-app.use(function(request, response) {
+app.use(function (request, response) {
   response.status(404).json({ message: "Resource not found" });
 });
 
-
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+const listener = app.listen(process.env.PORT, function () {
+  console.log("Your app is listening on port " + listener.address().port);
 });
