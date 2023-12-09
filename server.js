@@ -441,15 +441,18 @@ app.post("/cart/order", async (req, res) => {
 
       // Commit the transaction
       await session.commitTransaction();
+      
+      res.status(200).json({ message: "Order placed successfully" });
     } catch (error) {
       // Abort transaction in case of error
       await session.abortTransaction();
+       res.status(500).json({ message: "Order placed failed" });
       throw error; // Rethrow the error
     } finally {
       session.endSession();
     }
 
-    res.status(200).json({ message: "Order placed successfully" });
+   
   } catch (error) {
     res.status(500).json({ message: "Error placing order", error: error });
   }
