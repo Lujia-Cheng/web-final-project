@@ -46,10 +46,10 @@ const Home = () => {
 
   const handleAddToCart = (product) => {
     let newCart;
-    const existingItem = cart.find(item => item.product_id._id === product._id);
+    const existingItem = cart.find(item => item.product._id === product._id);
     if (existingItem) {
       newCart = cart.map(item => {
-        if (item.product_id._id === product._id) {
+        if (item.product._id === product._id) {
           return {
             ...item,
             count: item.count + 1
@@ -61,7 +61,7 @@ const Home = () => {
       newCart = [
         ...cart,
         {
-          product_id: product,
+          product: product,
           count: 1
         }
       ];

@@ -29,22 +29,22 @@ const AllProducts = () => {
   )
   const handleAddToCart = (product) => {
     let newCart;
-    const existingItem = cart.find(item => item.product_id._id === product._id);
+    const existingItem = cart.find(e => e.product._id === product._id);
     if (existingItem) {
-      newCart = cart.map(item => {
-        if (item.product_id._id === product._id) {
+      newCart = cart.map(e => {
+        if (e.product._id === product._id) {
           return {
-            ...item,
-            count: item.count + 1
+            ...e,
+            count: e.count + 1
           };
         }
-        return item;
+        return e;
       });
     } else {
       newCart = [
         ...cart,
         {
-          product_id: product,
+          product: product,
           count: 1
         }
       ];

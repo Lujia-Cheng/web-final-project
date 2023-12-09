@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Autocomplete} from '@mui/material';
-import TextField from "@mui/material/TextField";
+import {useNavigate} from 'react-router-dom';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 function SearchBar() {
   const [products, setProducts] = useState([]);
-
+  const navigate = useNavigate();
   const fetchAllProducts = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/products`);
       if (response.ok) {
         const data = await response.json();
-        setProducts(data.map(e => e.name));
+        setProducts(data);
       } else {
         console.error('Failed to fetch products from server');
       }
@@ -22,16 +23,22 @@ function SearchBar() {
       fetchAllProducts().then(r => console.log(r));
     }, []
   )
+  const handleAutocompleteChange = (event, value) => {
+    if (value && value._id) {
+      navigate(`/product/${value._id}`);
+    }
+  };
 
-  return (
-    <Autocomplete sx={{ml: 1, flex: 1}}
-                  autoHighlight
-                  disablePortal
-                  options={products}
-                  renderInput={(params) => <TextField {...params} label="Search"/>}
+   return (
+    <Autocomplete
+      sx={{ ml: 1, flex: 1 }}
+      autoHighlight
+      disablePortal
+      options={products}
+      getOptionLabel={(option) => option.name} // Assuming each product has a 'name' property
+      onChange={handleAutocompleteChange}
+      renderInput={(params) => <TextField {...params} label="Search" />}
     />
-
-
   );
 }
 

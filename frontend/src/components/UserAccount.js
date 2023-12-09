@@ -103,10 +103,10 @@ const UserProfile = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Profile
+          Update Profile
         </Typography>
-        <Paper elevation={2} sx={{padding: 2, marginBottom: 2}}>
-          <Typography variant="h6">Contact Information</Typography>
+        <Paper elevation={2} sx={{padding: 2, marginBottom: 2, minWidth: 300}}>
+          <Typography variant="h6">Current Contact Information</Typography>
           <Divider sx={{marginBottom: 2}}/>
           <Typography>Email: {userData.email}</Typography>
           <Typography>Address: {userData.address}</Typography>
@@ -147,26 +147,27 @@ const UserProfile = () => {
             </Button>
           </Box>
         </Box>
-        <Paper elevation={2} sx={{padding: 2, marginTop: 2}}>
-          <Typography variant="h6">Order History</Typography>
-          <Divider sx={{marginBottom: 2}}/>
-          <List>
-            {orderHistory.map((order) => (
-              <ListItem key={order._id}>
-                <ListItemAvatar>
-                  <Avatar src={order.product_id.image} alt={order.product_id.name}/>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={`${order.product_id.name} - Quantity: ${order.count}`}
-                  secondary={`Order Date: ${new Date(order.create_at).toLocaleDateString()}`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Paper>
-      </Box>
-    </Container>
-  );
+        <Paper elevation={2} sx={{padding: 2, marginTop: 2, minWidth: 300}}>
+        <Typography variant="h6">Order History</Typography>
+        <Divider sx={{marginBottom: 2}}/>
+        <List>
+          {orderHistory.map((order) => (
+            <ListItem key={order._id}>
+              <ListItemAvatar>
+                <Avatar src={order.product.image} alt={order.product.name}/>
+              </ListItemAvatar>
+              <ListItemText
+                primary={`${order.product.name} - Quantity: ${order.count}`}
+                secondary={`Order Date: ${new Date(order.create_at).toLocaleDateString()}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
+    </Box>
+</Container>
+)
+  ;
 };
 
 export default UserProfile;

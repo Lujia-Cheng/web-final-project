@@ -184,7 +184,6 @@ const AdminAccount = () => {
 
   return (
   <div>
-    <h1>Admin Account</h1>
     <Card>
       <CardContent>
         <Tabs value={tab} onChange={handleTabChange} centered>

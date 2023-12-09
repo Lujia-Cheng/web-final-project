@@ -6,3 +6,5 @@ export {default as Account} from './Account';
 export {default as Register} from './Register';
 export {default as AllProducts} from './AllProducts';
 export {default as ProductDetail} from './ProductDetail';
+export {default as ContactUs} from './ContactUs';
+export {default as AboutUs} from './AboutUs';
