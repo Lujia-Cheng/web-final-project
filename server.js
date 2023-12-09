@@ -82,7 +82,7 @@ app.post('/logout', (req, res) => {
 app.post('/register', async (req, res) => {
   try {
     // Extract and validate data
-    const { name='', password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, admin_access_code } = req.body;
+    const { name, password, email, address, kind, business_category, annual_income, marriage_status, gender, age, income, admin_access_code } = req.body;
  
     // Basic data validation
     if (!email || !password) {
