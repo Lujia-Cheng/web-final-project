@@ -148,26 +148,26 @@ const UserProfile = () => {
           </Box>
         </Box>
         <Paper elevation={2} sx={{padding: 2, marginTop: 2, minWidth: 300}}>
-        <Typography variant="h6">Order History</Typography>
-        <Divider sx={{marginBottom: 2}}/>
-        <List>
-          {orderHistory.map((order) => (
-            <ListItem key={order._id}>
-              <ListItemAvatar>
-                <Avatar src={order.product_id.image} alt={order.product_id.name}/>
-              </ListItemAvatar>
-              <ListItemText
-                primary={`${order.product_id.name} - Quantity: ${order.count}`}
-                secondary={`Order Date: ${new Date(order.create_at).toLocaleDateString()}`}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </Paper>
-    </Box>
-</Container>
-)
-  ;
+          <Typography variant="h6">Order History</Typography>
+          <Divider sx={{marginBottom: 2}}/>
+          <List>
+            {orderHistory.map((order) => (
+              <ListItem key={order._id}>
+                <ListItemAvatar>
+                  <Avatar src={`${order.product_id.image}?random=${order.product_id._id}`}/>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${order.product_id.name} - Quantity: ${order.count}`}
+                  secondary={`Order Date: ${new Date(order.create_at).toLocaleDateString()}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+      </Box>
+    </Container>
+  )
+    ;
 };
 
 export default UserProfile;

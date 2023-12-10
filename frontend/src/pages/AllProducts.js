@@ -79,11 +79,11 @@ const AllProducts = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
-                  Add to Cart
-                </Button>
-                <Button size="small" color="primary" onClick={() => navigate(`/product/${product._id}`)}>
+                <Button color="primary" onClick={() => navigate(`/product/${product._id}`)}>
                   View Details
+                </Button>
+                <Button color="primary" variant="contained" onClick={() => handleAddToCart(product)}>
+                  Add to Cart
                 </Button>
               </CardActions>
             </Card>

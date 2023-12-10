@@ -1,7 +1,10 @@
-# E-commerce Website - a CURD application
- 
+# E-commerce Website — a CURD application
+
 > for grading purpose, please refer to [Report.md](./Report.md)
 
-# Demo
+# Demo Links
 
-**TODO** add finalized link
+Stable link: https://glitch.com/@a-plus-team/infsci-2560-final-project 
+
+
+

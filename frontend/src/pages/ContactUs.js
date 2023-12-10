@@ -12,7 +12,7 @@ function ContactUs() {
     phonenumber: '',
     message: '',
   });
-  const [file, setFile] = useState(null);
+  const [setFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const onChangeHandler = (e) => {
@@ -50,8 +50,10 @@ function ContactUs() {
             <TextField fullWidth label="Message" name="message" multiline rows={4} value={userData.message}
                        onChange={onChangeHandler} margin="normal"/>
             <input type="file" onChange={onFileChangeHandler} ref={fileInputRef} hidden/>
-            <Button onClick={() => fileInputRef.current.click()} variant="outlined" sx={{my: 2}}>Upload File</Button>
-            <Button type="submit" variant="contained" color="primary">Submit</Button>
+            <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2}}>
+              <Button onClick={() => fileInputRef.current.click()} sx={{my: 2}}>Upload File</Button>
+              <Button type="submit" variant="contained" color="primary">Submit</Button>
+            </Box>
           </form>
         </Box>
         <Paper elevation={3} sx={{padding: 2, maxWidth: 300}}>

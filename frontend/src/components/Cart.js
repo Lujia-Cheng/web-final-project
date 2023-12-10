@@ -2,8 +2,10 @@ import React from 'react';
 import {Avatar, Box, Button, Grid, IconButton, Paper, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {useCart} from "../contexts/CartContext";
 import {useNavigate} from "react-router-dom";
+
 
 function Cart() {
   const navigate = useNavigate();
@@ -55,6 +57,10 @@ function Cart() {
   };
 
   const submitOrder = async () => {
+    if (sessionStorage.getItem("userId") === null) {
+      navigate("/login");
+      return;
+    }
     try {
       await submitCartItems();
       const orderResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/cart/order`, {
@@ -94,7 +100,7 @@ function Cart() {
                   ${item.product.single_selling_price}</Typography>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                   <IconButton size="small" onClick={() => handleItemCountChange(item.product._id, item.count - 1)}>
-                    <RemoveIcon/>
+                    {item.count > 1 ? <RemoveIcon/> : <DeleteIcon/>}
                   </IconButton>
                   <Typography sx={{margin: '0 10px'}}>{item.count}</Typography>
                   <IconButton size="small" onClick={() => handleItemCountChange(item.product._id, item.count + 1)}>
@@ -110,12 +116,14 @@ function Cart() {
         <Paper sx={{padding: 2, height: 'fit-content'}}>
           <Typography variant="h6" gutterBottom>Order Summary</Typography>
           <Typography variant="body1">Total: ${calculateTotal().toFixed(2)}</Typography>
-          <Button onClick={submitOrder} variant="contained" color="primary" sx={{marginTop: 2}} fullWidth>
-            Submit Order
-          </Button>
-          <Button onClick={clearCart} variant="outlined" color="error" sx={{marginTop: 1}} fullWidth>
-            Clear Cart
-          </Button>
+          <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2}}>
+            <Button onClick={clearCart} variant="outlined" color="error">
+              Clear Cart
+            </Button>
+            <Button onClick={submitOrder} variant="contained" color="primary">
+              Submit Order
+            </Button>
+          </Box>
         </Paper>
       </Grid>
     </Box>

@@ -9,7 +9,7 @@ import { useCart } from "../contexts/CartContext";
 
 const ActionButtons = () => {
   const navigate = useNavigate();
-  const { cart, setCart, getItemCount } = useCart();
+  const {  setCart, getItemCount } = useCart();
   const itemCount = getItemCount();
 
   const handleLogout = () => {

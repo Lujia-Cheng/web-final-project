@@ -41,7 +41,7 @@ const Home = () => {
 
   useEffect(() => {
       fetchRandomProducts(30).then(r => console.log(r));
-    }, []
+    }, [sessionStorage.getItem("userId")]
   )
 
   const handleAddToCart = (product) => {
@@ -68,9 +68,6 @@ const Home = () => {
     }
     setCart(newCart);
 
-  }
-  const handleViewDetail = (product) => {
-// todo
   }
 
   return (
@@ -99,12 +96,13 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => handleAddToCart(product)}>
-                  Add to Cart
-                </Button>
-                <Button size="small" color="primary" onClick={() => navigate(`/product/${product._id}`)}>
+                <Button color="primary" onClick={() => navigate(`/product/${product._id}`)}>
                   View Details
                 </Button>
+                <Button color="primary" variant="contained" onClick={() => handleAddToCart(product)}>
+                  Add to Cart
+                </Button>
+
               </CardActions>
             </Card>
           </Grid>
