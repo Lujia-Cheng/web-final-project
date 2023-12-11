@@ -4,7 +4,7 @@ In this project, we focused on building an e-commerce website that is lightweigh
 
 # Objective
 
-## Key features as promised in the Final Project Description
+## Key features as promised in the Final Project Description and MORE
 
 - Product Listing 
     - Search Product
@@ -12,7 +12,7 @@ In this project, we focused on building an e-commerce website that is lightweigh
     - All Products Listing
 - Shopping Cart Management
     - Consistent shopping cart management page
-    - Able to add to shopping cart from product listing page; repeated products are automatically combined together into on entry in cart.
+    - Able to add to shopping cart from product listing page; repeated products are automatically combined together into one entry in the cart.
 - Order Management
 - User Profile Management
 - Admin Management
