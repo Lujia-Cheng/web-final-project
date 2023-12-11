@@ -4,7 +4,4 @@
 
 # Demo Links
 
-Stable link: https://glitch.com/@a-plus-team/infsci-2560-final-project 
-
-
-
+Stable link: https://glitch.com/@a-plus-team/infsci-2560-final-project

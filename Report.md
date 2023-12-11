@@ -1,25 +1,30 @@
 # Introduction
 
-In this project we focused on building the eccommerce website that is lightweight and deployable on Glitch. We would target two type of users: Customer, and Admin(Manager).
+In this project, we focused on building the ecommerce website that is lightweight and deployable on Glitch. We would target two types of users: Customer, and Admin (Manager).
 
 # Objective
 
-Key features as promised in Final Project Description are:
+## Key features as promised in the Final Project Description
 
-- Product listing,
-- Shopping Cart Management,
+- Product listing
+- Shopping Cart Management
 - Order Management
 - User Profile Management
 - Admin Management - manage user profile - manage product info in stock
 
+## Data C.R.U.D.
+
+- Admin can create, read, update, and delete product information
+- Customers can read product information, edit their profile, edit cart, and place orders
+
 # Team members Contributions
 
-| Name           | PittID@Email.edu | Contributions                                                                                   |
-|----------------|------------------|-------------------------------------------------------------------------------------------------|
-| Jinghong Zhang | jiz329@pitt.edu  | Backend ExpressJS API, implemented frontend User Details, admin view                            |
-| Pinhao Wang    | PIW17@pitt.edu   | implemented Frontend ReactJS login, register view, user profile management view                 |
-| Luke Cheng     | luc68@pitt.edu   | Frontend architecture, implemented Home page, products, cart                                    |
-| Yang Ma        | yam38@pitt.edu   | Backend ExpressJS api, frontend admin view, customer/product listing and editing, documentation |
+| Name           | PittID@pitt.edu | Contributions                                                                                                      |
+|----------------|-----------------|--------------------------------------------------------------------------------------------------------------------|
+| Jinghong Zhang | jiz329@pitt.edu | Backend ExpressJS API, implemented frontend User Details, admin view                                               |
+| Pinhao Wang    | piw17@pitt.edu  | implemented Frontend ReactJS login, register view, user profile management view                                    |
+| Luke Cheng     | luc68@pitt.edu  | Frontend architecture, implemented Home page, products, cart, documentation                                        |
+| Yang Ma        | yam38@pitt.edu  | Database populate, Backend ExpressJS api, frontend admin view, customer/product listing and editing, documentation |
 
 # Technical Architecture
 
@@ -27,7 +32,7 @@ Key features as promised in Final Project Description are:
 
 - MongoDB Atlas
 
-There's not really much to talk about in this section, besides that we're using MongoDB Atlas, which is a cloud database service. And the MVC model is handled by the ExpressJS with Mongoose.
+There's not really much to talk about in this section, besides that MongoDB Atlas is a cloud database service. And its MVC model is handled by the through Mongoose in backend.
 
 ## Backend
 
@@ -50,22 +55,25 @@ We've attached a Postman Endpoint collection below. And feel free to import to y
 - Material UI
 - Glitch
 
-I won't go too deep into the frontend architecture. But I would mention it's componentized as ["React" intended](https://react.dev/learn/thinking-in-react). We obviously have used React `react-router-dom` and `useNavigator` instead of Link/herf for routing. And custom React Hooks for cross-page cart management.
+I won't go too deep into the frontend architecture. But I would mention it's componentized as ["React" intended](https://react.dev/learn/thinking-in-react). We obviously used React `react-router-dom` and `useNavigator` instead of Link/herf for easier routing. And custom React Hooks for cross-page cart management.
 
-To avoid CSS conflicts and for a consist styling, Material UI is fully utilized.
+For a consist styling, Material UI is fully utilized.
 
 ## Deployment
 
-> Stable link https://glitch.com/@a-plus-team/infsci-2560-final-project
+> Glitch Playlist: https://glitch.com/@a-plus-team/infsci-2560-final-project
 
-Although you'll see all the source code here, but we deployed the website on two separate Glitch projects.
-One for frontend, and the other for backend. You'll find them in the above link.
+Although you can find both front and backend under the same GitHub repo, we've deployed them separately into two Glitch projects under the "Playlist" link above. One using a minimalistic Express.js serving the static `build` files from React. And the other one is the actual API backend, which is a more competent Express.js. And later in the [challenges](#configuring-glitch--by-luke) section, you'll see why we've done this.
 
 # Challenges
 
-## Different knowledge base
+## Unfamiliarity knowledge base
 
-We're more familiar with flask. Yet...
+One of our backend developers is fluent in Django and flask. And given native support for Node.js by Glitch, we decided to be safe and to go with Express.js.
+
+## Configuring Glitch — by Luke
+
+Undoubtedly, Glitch is beginner-friendly. But from another perceptive, it's hidden complexities with undocumented entry points. And I've spent way too many fruitless hours in Glitch trying to build directly from source. Yet, I finally gave up and decided to build local, manually copy, and push the `build` folder to Glitch. Thus, a separation (arguably more professional-looking) backend and frontend deployment.
 
 # Future Work
 
@@ -73,6 +81,8 @@ We're more familiar with flask. Yet...
 
 # Recourses
 
-Material UI, (Card Listing Simple examples)[!https://codesandbox.io/p/sandbox/infinite-scroll-react-material-ui-zpuj3?file=%2Fsrc%2Findex.js%3A9%2C12]
+Material UI, [Card Listing Simple examples](https://codesandbox.io/p/sandbox/infinite-scroll-react-material-ui-zpuj3?file=%2Fsrc%2Findex.js%3A9%2C12)
 
-MDN
+MDN [API](https://developer.mozilla.org/en-US/docs/Web/API/)
+
+[React](https://react.dev)
