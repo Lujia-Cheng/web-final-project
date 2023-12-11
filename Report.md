@@ -58,8 +58,28 @@ There's not really much to talk about in this section, besides that MongoDB Atla
 We've attached a Postman Endpoint collection below. And feel free to import to your Postman client and play around
 
 (https://api.postman.com/collections/8126869-deffaefa-ea3e-440e-81a3-2920ac420ebc?access_key=PMAT-01HH0Y46JQ2WBVR0D2EFBB0GAD)
-### main API endpoints:
-- 
+### API Endpoints overview:
+- Login Endpoint: Authenticates users by verifying email and password, and provides a JWT token for successful logins.
+- Logout Endpoint: Facilitates user logout by prompting the client to clear the stored authentication token.
+- Register Endpoint: Handles new user registrations, performing data validation and password hashing.
+- Product Listing Endpoint: Retrieves a list of products, with each product's image URL being dynamically modified.
+- Product Creation Endpoint: Allows admin users to create new product entries in the database.
+- Product Update Endpoint: Enables updating specific product details identified by product ID.
+- Product Deletion Endpoint: Facilitates the deletion of a product from the database using its ID.
+- Single Product Detail Endpoint: Provides detailed information for a specific product, including a modified image URL.
+- Add to Cart Endpoint: Adds products to a user's shopping cart, updating the count for existing items.
+- Clear Cart Endpoint: Clears all items from a user's shopping cart.
+- Delete Cart Item Endpoint: Removes a specific item from the user's shopping cart using its ID.
+- Update Cart Item Count Endpoint: Updates the quantity of a specific item in the user's shopping cart.
+- Place Order Endpoint: Processes the user's cart items as an order, updating product inventory and creating transaction records.
+- Get Cart List Endpoint: Retrieves the list of items in a user's shopping cart.
+- Transaction History Endpoint: Provides a history of a user's transactions.
+- Admin Products Listing Endpoint: Allows admins to view all product entries in the database.
+- Admin Customers Listing Endpoint: Enables admins to view all customer profiles in the database.
+- User Information Endpoint: Retrieves detailed information for a specific user based on their ID.
+- Update User Information Endpoint: Allows updates to a user's email and address information.
+- 404 Handler: Returns a "Resource not found" message for undefined routes.
+- Server Listener: Sets up the server to listen for requests on a specified port.
 ## Frontend
 
 - ReactJS
