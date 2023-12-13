@@ -151,7 +151,7 @@ const UserProfile = () => {
           <Typography variant="h6">Order History</Typography>
           <Divider sx={{marginBottom: 2}}/>
           <List>
-            {orderHistory.map((order) => (
+            {orderHistory.toReversed().map((order) => (
               <ListItem key={order._id}>
                 <ListItemAvatar>
                   <Avatar src={`${order.product_id.image}?random=${order.product_id._id}`}/>

@@ -7,6 +7,7 @@ import Cart from "./components/Cart";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 import {CartProvider} from './contexts/CartContext';
+import {CssBaseline} from "@mui/material";
 
 function App() {
 
@@ -20,9 +21,8 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <header>
-          <Header/>
-        </header>
+        <CssBaseline/>
+        <Header/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
@@ -34,7 +34,6 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail/>}/>
           <Route path="/contact-us" element={<ContactUs/>}/>
           <Route path="/about-us" element={<AboutUs/>}/>
-          {/* todo Add all routes */}
           <Route path="*" element={<NotFound/>}/>
         </Routes>
         <Button onClick={scrollToTop} style={{position: 'fixed', bottom: '20px', right: '20px'}}>

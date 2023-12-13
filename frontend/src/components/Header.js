@@ -7,22 +7,24 @@ import ActionButtons from "./ActionButtons";
 
 function Header() {
   return (
-    <AppBar spacing={4} position="static" color="default" elevation={0}>
-      <Toolbar>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
-            <Logo/>
+    <header>
+      <AppBar spacing={4} position="static" color="default" elevation={0}>
+        <Toolbar>
+          <Grid container alignItems="center" justifyContent="space-between">
+            <Grid item>
+              <Logo/>
+            </Grid>
+            <Grid item xs>
+              <SearchBar/>
+            </Grid>
+            <Grid item>
+              <ActionButtons/>
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <SearchBar/>
-          </Grid>
-          <Grid item>
-            <ActionButtons/>
-          </Grid>
-        </Grid>
-      </Toolbar>
-      <NavBarLinks/>
-    </AppBar>
+        </Toolbar>
+        <NavBarLinks/>
+      </AppBar>
+    </header>
   );
 }
 

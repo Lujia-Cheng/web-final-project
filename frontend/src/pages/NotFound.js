@@ -5,11 +5,14 @@ function NotFound() {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(5);
 
+  /**
+   * Automatically navigate back to the previous page after 5 seconds
+   */
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prevCountdown) => {
         if (prevCountdown === 1) {
-          navigate(-1); // Navigate to the previous page
+          navigate("/");
         }
         return prevCountdown - 1;
       });
@@ -21,8 +24,8 @@ function NotFound() {
   return (
     <div>
       <h1>404 - Page Not Found</h1>
-      <p>Oops! We haven't implement this page, yet...</p>
-      <p>Don't worry, we'll take you back to the previous page in {countdown} seconds...</p>
+      <p>Oops! How you get here? Drop an <a href={process.env.REACT_APP_GITHUB_URL}>issue</a> on github</p>
+      <p>Don't worry, we'll take you back to home page in {countdown} seconds...</p>
     </div>
   );
 }

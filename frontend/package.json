@@ -2,6 +2,13 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "description": "A CURD e-commerce website, the frontend of our final project for Pitt 2023 fall INFSCI 2560",
+  "authors": [
+    "Luke Cheng <lukecheng@pitt.edu > (https://www.linkedin.com/in/luke-cheng/)",
+    "Yang Ma <yam38@pitt.edu>",
+    "Jinghong Zhang <jiz329@pitt.edu>",
+    "Pinhao Wang <piw17@pitt.edu>"
+  ],
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -44,5 +51,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react-test-renderer": "^18.2.0"
-  }
+  },
+   "keywords": [
+    "glitch",
+    "react",
+    "pitt",
+    "infsci2560"
+  ]
 }

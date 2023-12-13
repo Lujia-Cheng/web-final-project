@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {Box, Button, CircularProgress, Container, TextField, Typography} from '@mui/material';
 import {useNavigate} from "react-router-dom";
 
 function Register() {
@@ -12,67 +8,74 @@ function Register() {
     name: '',
     password: '',
     email: '',
-    address: '',
-    kind: 'Consumer', // Assuming a default value
-    business_category: '',
-    annual_income: '',
-    marriage_status: '',
-    gender: '',
-    age: '',
-    income: '',
     admin_access_code: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
 
   const handleChange = (e) => {
-    const {name, value, type, checked} = e.target;
+    const {name, value} = e.target;
     setFormData(prevState => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value
     }));
+  };
+
+  const validatePassword = (password) => {
+    // Password validation
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+  }
+
+  const registerUser = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/register`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Registration error");
+    }
+  }
+
+  const loginUser = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/login`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Login error");
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+    sessionStorage.setItem('userId', data.user?.id);
+    sessionStorage.setItem('isAdmin', data.user?.is_admin ? 'true' : 'false');
+    navigate(data.user?.is_admin ? '/account' : '/');
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    if (!validatePassword(formData.password)) {
+      setError("Invalid password. Please ensure it meets the requirements.");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        // login after register
-        fetch(`${process.env.REACT_APP_BACKEND_API}/login`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(formData)
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(response.statusText);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log('Success:', data);
-            sessionStorage.setItem('userId', data.user?.id);
-            if (data.user?.is_admin) {
-              sessionStorage.setItem('isAdmin', 'true');
-              navigate('/account');
-            } else {
-              sessionStorage.setItem('isAdmin', 'false');
-              navigate('/');
-            }
-
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      }
+      await registerUser();
+      await loginUser();
     } catch (error) {
-      console.error('Register fail', error);
+      console.error('Registration/Login failed:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,18 +86,32 @@ function Register() {
           Register
         </Typography>
         <form onSubmit={handleSubmit}>
-          <TextField fullWidth required label="Email" name="email" type="email" value={formData.email}
-                     onChange={handleChange} margin="normal"/>
-          <TextField fullWidth required label="Password"
-                     helperText="Longer then 8 char which includes at least 1 lowercase, 1 uppercase, and 1 number, "
-                     name="password" type="password" value={formData.password}
-                     onChange={handleChange} margin="normal"/>
-          <TextField fullWidth label="Name" name="name" value={formData.name} onChange={handleChange} margin="normal"/>
-          <TextField fullWidth label="Tester Invitation Code (unstable)" name="admin_access_code"
-                     value={formData.admin_access_code} onChange={handleChange}
-                     margin="normal"/>
-          <Button type="submit" variant="contained" color="primary">
-            Register
+          <TextField
+            fullWidth required label="Email" name="email"
+            type="email" value={formData.email}
+            onChange={handleChange} margin="normal"
+          />
+          <TextField
+            fullWidth required label="Password"
+            helperText="Password requirement: (>= 8 characters, >= 1 uppercase, >= 1 lowercase, >= 1 number). And please use a burner password like StrongPassword@123 since it'll be passed through an unsecured channel into a testing database."
+            name="password" type="password"
+            value={formData.password} onChange={handleChange}
+            margin="normal"
+          />
+          {error && <Typography color="error">{error}</Typography>}
+          <TextField
+            fullWidth label="Name" name="name"
+            value={formData.name} onChange={handleChange}
+            margin="normal"
+          />
+          <TextField
+            fullWidth label="Admin Access Code" name="admin_access_code"
+            value={formData.admin_access_code} onChange={handleChange}
+            margin="normal"
+            helperText="See README.md if you want to register as Admin"
+          />
+          <Button type="submit" variant="contained" color="primary" disabled={loading}>
+            {loading ? <CircularProgress size={24}/> : ' Register'}
           </Button>
         </form>
       </Box>
