@@ -10,8 +10,6 @@
     "Pinhao Wang <piw17@pitt.edu>"
   ],
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.20",
     "react": "^18.2.0",
@@ -52,7 +50,11 @@
     "@testing-library/user-event": "^13.5.0",
     "react-test-renderer": "^18.2.0"
   },
-   "keywords": [
+  "repository": {
+    "url": "https://github.com/Lujia-Cheng/web-final-project"
+  },
+  "license": "MIT",
+  "keywords": [
     "glitch",
     "react",
     "pitt",
