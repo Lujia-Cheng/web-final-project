@@ -106,7 +106,7 @@ Moreover, we ensured the front-end and back-end would match together by writing 
 
 One of our backend developers is fluent in Django and Flask. And given native support for Node.js by Glitch, we decided to be safe and to go with Express.js.
 
-## Configuring Glitch — by Luke
+## Configuring Glitch
 
 Undoubtedly, Glitch is beginner-friendly. But from another perspective, it's hidden complexities with undocumented entry points. And I've spent way too many fruitless hours in Glitch trying to build directly from the source. Yet, I finally gave up and decided to build local, manually copy, and push the `build` folder to Glitch. Thus, a separation (arguably more professional-looking) backend and frontend deployment. 
 
