@@ -32,8 +32,8 @@ function useProducts(shouldShuffle = false, count = null) {
       }
     };
 
-    fetchAllProducts();
-  }, []);
+    fetchAllProducts().then(() => console.log('Products fetched'));
+  }, [shouldShuffle, count]);
 
   return products;
 }
