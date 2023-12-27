@@ -27,7 +27,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Upload Build to Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: ./frontend/build # maybe sync build to glitch.com in the future
