@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './components/Header';
 import {AboutUs, Account, AllProducts, ContactUs, Home, Login, NotFound, Order, ProductDetail, Register} from './pages';
@@ -10,6 +10,25 @@ import {CartProvider} from './contexts/CartContext';
 import {CssBaseline} from "@mui/material";
 
 function App() {
+  useEffect(() => {
+    // Define the function to "wake up" your backend
+    async function wakeUpBackend() {
+      try {
+        const response = await fetch(process.env.REACT_APP_BACKEND_API, {
+          method: 'GET',
+        });
+        if (response.ok) {
+          console.log('Backend woken up successfully');
+        } else {
+          console.error('Failed to wake up backend');
+        }
+      } catch (error) {
+        console.error('Error waking up backend:', error);
+      }
+    }
+
+    wakeUpBackend();
+  }, []);
 
   function scrollToTop() {
     window.scrollTo({
