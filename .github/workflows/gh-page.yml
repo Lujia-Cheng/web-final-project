@@ -29,7 +29,7 @@ jobs:
       - name: Upload Build to Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: github-pages
           path: ./frontend/build # maybe sync build to glitch.com in the future
 
   deploy:
