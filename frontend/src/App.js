@@ -11,7 +11,8 @@ import {CssBaseline} from "@mui/material";
 
 function App() {
   useEffect(() => {
-    // Define the function to "wake up" your backend
+
+    // Send an empty GET request to wake up the backend
     async function wakeUpBackend() {
       try {
         const response = await fetch(process.env.REACT_APP_BACKEND_API, {
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <CartProvider>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <CssBaseline/>
         <Header/>
         <Routes>

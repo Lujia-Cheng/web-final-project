@@ -2,8 +2,8 @@ name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build-frontend:
@@ -25,7 +25,7 @@ jobs:
       - name: Upload Build to Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/build # maybe sync build to glitch.com in the future
+          path: ./frontend/build # sync build to glitch.com in the future
 
   deploy-backend:
     runs-on: ubuntu-latest
