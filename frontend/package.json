@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "A CURD e-commerce website, the frontend of our final project for Pitt 2023 fall INFSCI 2560",
+  "homepage": "https://lujia-cheng.github.io/web-final-project",
   "authors": [
     "Luke Cheng <lukecheng@pitt.edu > (https://www.linkedin.com/in/luke-cheng/)",
     "Yang Ma <yam38@pitt.edu>",
