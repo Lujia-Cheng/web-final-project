@@ -2,9 +2,17 @@
 
 > For grading or more detailed information, please refer to [Report.md](Report.md)
 
-# Demo (Glitch.com)
+# Demo
+
+> both shared the same backend
+
+## Glitch.com (manual deployed per project requirement)
 
 Stable link: https://glitch.com/@a-plus-team/infsci-2560-final-project
+
+## Github page (deployed via GitHub workflow)
+
+https://lujia-cheng.github.io/web-final-project 
 
 ## Admin access code
 
