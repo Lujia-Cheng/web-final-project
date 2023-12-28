@@ -14,7 +14,7 @@ Only frontend becasue github pages only support static webpage: https://lujia-ch
 
 ## Admin access code
 
-You may want to sign up as `admin` to perform CRUD action on products details, customer info, etc. If so, use below code for **Admin Access Code** to sign up.
+You may want to sign up as `admin` to perform CRUD action on products details, customer info, etc. If so, use below code for **Admin Access Code** during sign up.
 
 <details>
   <summary>Click me</summary>
